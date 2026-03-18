@@ -1,0 +1,35 @@
+.magazines-page {
+  padding-top: 100px;
+  min-height: 100vh;
+}
+
+.magazines-page__hero {
+  padding: 64px 56px 48px;
+  border-bottom: 1px solid rgba(201,150,12,0.1);
+}
+
+.magazines-page__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300;
+  margin-bottom: 14px;
+}
+
+.magazines-page__sub {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(245,240,232,0.4);
+  letter-spacing: 0.3px;
+}
+
+.magazines-page__grid {
+  padding: 56px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 40px 28px;
+}
+
+@media (max-width: 768px) {
+  .magazines-page__hero { padding: 48px 24px 32px; }
+  .magazines-page__grid { padding: 32px 24px; gap: 28px 16px; }
+}

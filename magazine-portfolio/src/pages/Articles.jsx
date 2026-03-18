@@ -17,11 +17,11 @@ export default function Articles() {
   useEffect(() => {
     supabase
       .from('articles')
-      .select('tags')
+      .select('category')
       .then(({ data }) => {
         if (!data) return
-        const tags = [...new Set(data.flatMap(a => a.tags || []))]
-        setAllTags(tags)
+        const cats = [...new Set(data.map(a => a.category).filter(Boolean))]
+        setAllTags(cats)
       })
   }, [])
 
@@ -36,12 +36,12 @@ export default function Articles() {
     setLoading(true)
     let query = supabase
       .from('articles')
-      .select('id, title, slug, excerpt, cover_image, publication, published_at, tags')
-      .order('published_at', { ascending: false })
+      .select('id, title, excerpt, cover_image, category, author, created_at')
+      .order('created_at', { ascending: false })
       .range(pageNum * PAGE_SIZE, (pageNum + 1) * PAGE_SIZE - 1)
 
     if (search) query = query.ilike('title', `%${search}%`)
-    if (activeTag) query = query.contains('tags', [activeTag])
+    if (activeTag) query = query.eq('category', activeTag)
 
     const { data } = await query
     const results = data || []

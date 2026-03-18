@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 import './ArticleDetail.css'
 
 export default function ArticleDetail() {
-  const { slug } = useParams()
+  const { id } = useParams()
   const [article, setArticle] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -12,13 +12,13 @@ export default function ArticleDetail() {
     supabase
       .from('articles')
       .select('*')
-      .eq('slug', slug)
+      .eq('id', id)
       .single()
       .then(({ data }) => {
         setArticle(data)
         setLoading(false)
       })
-  }, [slug])
+  }, [id])
 
   if (loading) return (
     <div className="article-detail__loading">
@@ -33,8 +33,8 @@ export default function ArticleDetail() {
     </div>
   )
 
-  const formattedDate = article.published_at
-    ? new Date(article.published_at).toLocaleDateString('en-PH', {
+  const formattedDate = article.created_at
+    ? new Date(article.created_at).toLocaleDateString('en-PH', {
         day: 'numeric', month: 'long', year: 'numeric'
       })
     : ''
@@ -49,17 +49,19 @@ export default function ArticleDetail() {
         )}
         <div className="article-detail__header">
           <div className="article-detail__meta">
-            {article.tags?.map(tag => (
-              <span key={tag} className="article-detail__tag">{tag}</span>
-            ))}
-            {formattedDate && <span className="article-detail__date">{formattedDate}</span>}
+            {article.category && (
+              <span className="article-detail__tag">{article.category}</span>
+            )}
+            {formattedDate && (
+              <span className="article-detail__date">{formattedDate}</span>
+            )}
           </div>
           <h1 className="article-detail__title">{article.title}</h1>
           {article.excerpt && (
             <p className="article-detail__excerpt">{article.excerpt}</p>
           )}
-          {article.publication && (
-            <p className="article-detail__pub">Published in <em>{article.publication}</em></p>
+          {article.author && (
+            <p className="article-detail__pub">By <em>{article.author}</em></p>
           )}
         </div>
       </div>
@@ -67,7 +69,9 @@ export default function ArticleDetail() {
       <div className="article-detail__body">
         {article.content
           ? article.content.split('\n').map((para, i) =>
-              para.trim() ? <p key={i}>{para}</p> : <br key={i} />
+              para.trim()
+                ? <p key={i}>{para}</p>
+                : <br key={i} />
             )
           : <p className="empty-state">Full article content coming soon.</p>
         }

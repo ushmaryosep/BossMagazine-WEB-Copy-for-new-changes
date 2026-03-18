@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     supabase
       .from('articles')
-      .select('id, title, slug, excerpt, cover_image, publication, published_at, tags')
+      .select('id, title, excerpt, cover_image, category, author, created_at')
       .order('published_at', { ascending: false })
       .limit(4)
       .then(({ data }) => {
