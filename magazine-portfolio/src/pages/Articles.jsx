@@ -36,7 +36,7 @@ export default function Articles() {
     setLoading(true)
     let query = supabase
       .from('articles')
-      .select('id, title, excerpt, cover_image, category, author, created_at')
+      .select('id, title, excerpt, cover_image, category, author, published_at, created_at')
       .order('created_at', { ascending: false })
       .range(pageNum * PAGE_SIZE, (pageNum + 1) * PAGE_SIZE - 1)
 

@@ -33,11 +33,6 @@ export default function ArticleDetail() {
     </div>
   )
 
-  const formattedDate = article.created_at
-    ? new Date(article.created_at).toLocaleDateString('en-PH', {
-        day: 'numeric', month: 'long', year: 'numeric'
-      })
-    : ''
 
   return (
     <main className="article-detail">
@@ -52,8 +47,9 @@ export default function ArticleDetail() {
             {article.category && (
               <span className="article-detail__tag">{article.category}</span>
             )}
-            {formattedDate && (
-              <span className="article-detail__date">{formattedDate}</span>
+          {/* Change formattedDate to article.published_at */}
+            {article.published_at && (
+              <span className="article-detail__date">{article.published_at}</span>
             )}
           </div>
           <h1 className="article-detail__title">{article.title}</h1>

@@ -2,11 +2,8 @@ import { Link } from 'react-router-dom'
 import './ArticleCard.css'
 
 export default function ArticleCard({ article, featured = false }) {
-  const { id, title, excerpt, cover_image, category, author, created_at } = article
-
-  const formattedDate = created_at
-    ? new Date(created_at).toLocaleDateString('en-PH', { month: 'long', year: 'numeric' })
-    : ''
+  // 1. Added published_at here instead of created_at
+  const { id, title, excerpt, cover_image, category, author, published_at } = article
 
   return (
     <Link to={`/articles/${id}`} className={`article-card ${featured ? 'article-card--featured' : ''}`}>
@@ -20,7 +17,8 @@ export default function ArticleCard({ article, featured = false }) {
       <div className="article-card__body">
         <div className="article-card__meta">
           {category && <span className="article-card__tag">{category}</span>}
-          {formattedDate && <span className="article-card__date">{formattedDate}</span>}
+          {/* 2. Simply render the published_at text directly */}
+          {published_at && <span className="article-card__date">{published_at}</span>}
         </div>
 
         <h3 className="article-card__title">{title}</h3>
