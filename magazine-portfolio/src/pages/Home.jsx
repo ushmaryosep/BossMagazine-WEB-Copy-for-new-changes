@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import magazines from '../data/magazines'
@@ -61,6 +61,73 @@ const SUB_CAROUSELS = [
 
 const YOUTUBE_IDS = ['pLx5EIT0jzY', 'iYBtU81QlCQ', '9jKHgBnvlsw']
 const JAN_2026_COVER = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/Magazine%20Issues/JANUARY%202026%20ISSUE/1%20Cover%20Page.png'
+
+// ─── Random 5-digit stats (fixed on mount) ──────────────────────────────────
+function rand5() { return Math.floor(10000 + Math.random() * 90000) }
+
+function useCountUp(target, duration = 2000) {
+  const [count, setCount] = useState(0)
+  const ref = useRef(null)
+  const startedRef = useRef(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !startedRef.current) {
+          startedRef.current = true
+          const start = performance.now()
+          const tick = (now) => {
+            const elapsed = now - start
+            const progress = Math.min(elapsed / duration, 1)
+            const ease = 1 - Math.pow(1 - progress, 3)
+            setCount(Math.floor(ease * target))
+            if (progress < 1) requestAnimationFrame(tick)
+            else setCount(target)
+          }
+          requestAnimationFrame(tick)
+        }
+      },
+      { threshold: 0.3 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [target, duration])
+
+  return [count, ref]
+}
+
+const STATS = [
+  { label: 'Total Views',      suffix: '+', delay: 0    },
+  { label: 'Reach',            suffix: '+', delay: 150  },
+  { label: 'Engagement',       suffix: '+', delay: 300  },
+  { label: 'Articles Written', suffix: '+', delay: 450  },
+]
+
+// Generate once on module load so numbers stay stable across re-renders
+const STAT_TARGETS = STATS.map(() => rand5())
+
+function StatItem({ label, suffix, target, delay }) {
+  const [count, ref] = useCountUp(target, 2200)
+  return (
+    <div className="home-stat" ref={ref} style={{ animationDelay: `${delay}ms` }}>
+      <span className="home-stat__num">{count.toLocaleString()}{suffix}</span>
+      <span className="home-stat__label">{label}</span>
+    </div>
+  )
+}
+
+function StatsCounter() {
+  return (
+    <section className="home-stats">
+      <div className="home-stats__inner">
+        {STATS.map((s, i) => (
+          <StatItem key={s.label} label={s.label} suffix={s.suffix} target={STAT_TARGETS[i]} delay={s.delay} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
 const marqueeItems = ['Boss Magazine Ph', 'Cover Stories', 'Feature Articles', 'Exclusive Interviews', 'Filipino Excellence', 'Since 2014']
 
 function AdBanner() {
@@ -253,6 +320,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* STATS COUNTER */}
+      <StatsCounter />
 
       {/* CTA */}
       <section className="cta-banner">
