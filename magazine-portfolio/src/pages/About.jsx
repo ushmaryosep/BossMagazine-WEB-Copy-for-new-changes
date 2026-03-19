@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom'
 import './About.css'
 
+const EDITORIAL_BOARD = [
+  { role: 'Publisher',                              name: 'BOSS Media Philippines, Co. LTD.' },
+  { role: 'Editor-in-Chief',                        name: 'Remie Degoma' },
+  { role: 'Executive Editor',                       name: 'Johnny Chotrani' },
+  { role: 'Managing Editor',                        name: 'Sofyan Alawi' },
+  { role: 'Feature Editor',                         name: 'Lugille L. Roberto' },
+  { role: 'Senior Graphics Designer & Webmaster',   name: 'JM Clavero' },
+  { role: 'Senior Marketing Specialist',            name: 'Francisca N. Dimayuga' },
+  { role: 'Digital Team',                           name: 'Boss TechSolutions PH' },
+  { role: 'PR Team',                                name: 'Blue Oak Strategies' },
+]
+
 export default function About() {
   return (
     <main className="about-page">
@@ -32,20 +44,55 @@ export default function About() {
           <div className="about-page__logo-block">
             <img src="/logo.png" alt="Boss Magazine Ph" />
           </div>
-          <div className="about-page__facts">
-            {[
-              { num: '10+', label: 'Years in Print' },
-              { num: '48+', label: 'Issues' },
-              { num: '200+', label: 'Articles' },
-            ].map(({ num, label }) => (
-              <div key={label} className="about-page__fact">
-                <span className="about-page__fact-num">{num}</span>
-                <span className="about-page__fact-label">{label}</span>
+        </div>
+      </div>
+
+      {/* ── EDITORIAL BOARD ─────────────────────────────────────────────── */}
+      <section className="about-editorial">
+        <div className="about-editorial__inner">
+          <div className="about-editorial__header">
+            <p className="section-label">Editorial Board</p>
+          </div>
+
+          <div className="about-editorial__grid">
+            {EDITORIAL_BOARD.map(({ role, name }) => (
+              <div key={role} className="about-editorial__item">
+                <span className="about-editorial__role">{role}</span>
+                <span className="about-editorial__name">{name}</span>
               </div>
             ))}
           </div>
+
+          <div className="about-editorial__office">
+            <div className="about-editorial__office-block">
+              <span className="about-editorial__office-label">Office Address</span>
+              <p className="about-editorial__office-text">
+                Arthaland Century Pacific Tower<br />
+                5th Avenue, 30th St., Bonifacio Global City<br />
+                Taguig City, Philippines
+              </p>
+            </div>
+
+            <div className="about-editorial__office-block">
+              <span className="about-editorial__office-label">Get in Touch</span>
+              <div className="about-editorial__contacts">
+                <a href="mailto:remie.bossmagph@gmail.com" className="about-editorial__contact">
+                  <span className="about-editorial__contact-type">Email</span>
+                  <span className="about-editorial__contact-val">remie.bossmagph@gmail.com</span>
+                </a>
+                <a href="https://facebook.com/BossMagazinePH" target="_blank" rel="noreferrer" className="about-editorial__contact">
+                  <span className="about-editorial__contact-type">Facebook</span>
+                  <span className="about-editorial__contact-val">Boss Magazine PH</span>
+                </a>
+                <a href="https://tiktok.com/@bossmediaphilippines" target="_blank" rel="noreferrer" className="about-editorial__contact">
+                  <span className="about-editorial__contact-type">TikTok</span>
+                  <span className="about-editorial__contact-val">Boss Media Philippines</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
     </main>
   )
