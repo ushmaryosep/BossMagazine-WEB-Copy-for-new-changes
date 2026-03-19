@@ -1,28 +1,38 @@
-/* ═══════════════════════════════════════════════════════════
-   HOME — 3-COLUMN LAYOUT
-   Left Ad (100px) | Center (1fr) | Right Ad (100px)
-═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   HOME PAGE — FULLY RESPONSIVE
+   Breakpoints:
+     Desktop  : > 1024px  — 3-col layout (left ad | center | right ad)
+     Tablet   : 601–1024px — 2-col (slim ads | center)
+     Mobile   : ≤ 600px   — single column, no ads
+═══════════════════════════════════════════════════════════════════════════ */
 
+/* ── 3-Column Outer Layout ─────────────────────────────────────────────── */
 .home-layout {
   display: grid;
   grid-template-columns: 100px 1fr 100px;
-  padding-top: 64px; /* offset fixed navbar */
+  padding-top: 64px;
   min-height: 100vh;
   background: var(--black);
 }
 
-/* ── Side Ads ────────────────────────────────────────────── */
+.home-center {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+/* ── Side Ads ──────────────────────────────────────────────────────────── */
 .home-side {
   background: var(--black2);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 24px;
-  gap: 24px;
 }
 
-.home-side--left { border-right: 1px solid rgba(201,150,12,0.08); }
-.home-side--right { border-left: 1px solid rgba(201,150,12,0.08); }
+.home-side--left  { border-right: 1px solid rgba(201,150,12,0.08); }
+.home-side--right { border-left:  1px solid rgba(201,150,12,0.08); }
 
 .side-ad {
   width: 80px;
@@ -45,10 +55,10 @@
   writing-mode: vertical-rl;
 }
 
-/* ── Banner Ad ───────────────────────────────────────────── */
+/* ── Banner Ad ─────────────────────────────────────────────────────────── */
 .home-banner-ad {
   width: 100%;
-  height: 90px;
+  height: 80px;
   background: var(--black2);
   border-bottom: 1px solid rgba(201,150,12,0.1);
   display: flex;
@@ -64,103 +74,72 @@
   color: rgba(201,150,12,0.18);
 }
 
-/* ── Sub Carousels Row ───────────────────────────────────── */
+/* ── Sub Carousels Row ─────────────────────────────────────────────────── */
 .home-sub-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid rgba(201,150,12,0.08);
+  gap: 8px;
+  padding: 0 8px;
 }
 
-.sub-card {
-  position: relative;
-  height: 160px;
-  overflow: hidden;
-  background: var(--black3);
-  border-right: 1px solid rgba(201,150,12,0.08);
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: background 0.3s;
+.home-sub-item {
+  border: 1px solid rgba(201,150,12,0.08);
 }
 
-.sub-card:last-child { border-right: none; }
-.sub-card:hover { background: #1c1810; }
-.sub-card--empty { cursor: default; }
+/* ── Video + Cover + Article Mid Grid ─────────────────────────────────── */
+/*
+  Desktop layout:
+  ┌─────────────────────┬──────────┐
+  │  Video 1            │          │
+  ├─────────────────────┤  Issue   │
+  │  Video 2            │  Cover   │
+  ├──────────┬──────────┤          │  ← cover spans rows 1-2
+  │  Video 3 │ Article1 │          │  ← but cover ends at row 2, then article1 is col2 row3
+  └──────────┴──────────┴──────────┘
 
-.sub-card--skeleton {
-  background: linear-gradient(90deg, var(--black3) 0%, #1e1a12 50%, var(--black3) 100%);
-  background-size: 200% 100%;
-  animation: home-shimmer 1.8s infinite;
-}
+  Actually cleaner to split into two grid areas:
+  Top: [videos-col] [cover-col]  — 2fr 1fr
+  Bottom: [video3] [article1]    — 2fr 1fr (same proportions)
+*/
 
-.sub-card__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.45;
-  transition: opacity 0.3s;
-  display: block;
-}
-
-.sub-card:hover .sub-card__img { opacity: 0.6; }
-
-.sub-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.2) 100%);
-}
-
-.sub-card__info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 14px 16px;
-  z-index: 2;
-}
-
-.sub-card__tag {
-  display: block;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 5px;
-}
-
-.sub-card__title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--white);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* ── Video + Sidebar Grid ────────────────────────────────── */
 .home-mid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  border-top: 1px solid rgba(201,150,12,0.08);
+  grid-template-rows: auto auto auto;
+  gap: 8px;
+  padding: 0 8px;
 }
 
-.home-mid__v1 { grid-column: 1; grid-row: 1; border-bottom: 1px solid rgba(201,150,12,0.08); }
-.home-mid__cover { grid-column: 2; grid-row: 1 / 3; border-left: 1px solid rgba(201,150,12,0.1); }
-.home-mid__v2 { grid-column: 1; grid-row: 2; border-bottom: 1px solid rgba(201,150,12,0.08); }
-.home-mid__v3 { grid-column: 1; grid-row: 3; }
-.home-mid__a1 { grid-column: 2; grid-row: 3; border-left: 1px solid rgba(201,150,12,0.1); border-top: 1px solid rgba(201,150,12,0.08); }
+.home-mid__videos {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-/* ── Video Embed ─────────────────────────────────────────── */
+.home-mid__cover {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  border: 1px solid rgba(201,150,12,0.1);
+}
+
+.home-mid__video3 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.home-mid__a1 {
+  grid-column: 2;
+  grid-row: 3;
+  border: 1px solid rgba(201,150,12,0.1);
+}
+
+/* ── Video Embed ───────────────────────────────────────────────────────── */
 .video-embed {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 7;
+  aspect-ratio: 16 / 5;
   background: var(--black3);
   overflow: hidden;
 }
@@ -181,29 +160,19 @@
   justify-content: center;
   gap: 12px;
   background: linear-gradient(135deg, #1a1400 0%, #0d0900 100%);
-  cursor: pointer;
-  transition: background 0.3s;
+  cursor: default;
 }
 
-.video-embed__placeholder:hover { background: linear-gradient(135deg, #201a00 0%, #100b00 100%); }
-
 .video-embed__play-icon {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border: 1px solid rgba(201,150,12,0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--gold-dim);
-  transition: all 0.3s;
   padding-left: 4px;
-}
-
-.video-embed__placeholder:hover .video-embed__play-icon {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(201,150,12,0.07);
 }
 
 .video-embed__label {
@@ -214,7 +183,7 @@
   color: var(--gold-dim);
 }
 
-/* ── Issue Cover Block ───────────────────────────────────── */
+/* ── Issue Cover ───────────────────────────────────────────────────────── */
 .issue-cover {
   height: 100%;
   display: flex;
@@ -227,8 +196,7 @@
 .issue-cover__eyebrow {
   position: absolute;
   top: 10px;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   text-align: center;
   font-size: 8px;
   font-weight: 700;
@@ -250,70 +218,42 @@
 .issue-cover__img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
+  object-position: center top;
   display: block;
+  background: var(--black2);
 }
 
 .issue-cover__mag::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 100%);
+  bottom: 0; left: 0; right: 0;
+  height: 50px;
+  background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 100%);
   pointer-events: none;
   z-index: 2;
 }
 
-.issue-cover__placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(160deg, #1e1600, #0d0900);
+.issue-cover__mag-footer {
+  position: absolute;
+  bottom: 10px;
+  left: 0; right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.issue-cover__placeholder-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
-  font-style: italic;
-  color: var(--gold-light);
-  letter-spacing: 2px;
-}
-
-.issue-cover__placeholder-date {
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold-dim);
+  gap: 4px;
+  z-index: 3;
 }
 
 .issue-cover__title {
-  position: absolute;
-  bottom: 36px;
-  left: 0;
-  right: 0;
-  text-align: center;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.5px;
   color: rgba(245,240,232,0.9);
-  z-index: 3;
   text-shadow: 0 1px 4px rgba(0,0,0,0.9);
 }
 
 .issue-cover__link {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -322,29 +262,26 @@
   border-bottom: 1px solid var(--gold-dim);
   padding-bottom: 2px;
   transition: color 0.25s, border-color 0.25s;
-  z-index: 3;
 }
-
 .issue-cover__link:hover { color: var(--gold-bright); border-color: var(--gold); }
 
-/* ── Bottom Article Previews ─────────────────────────────── */
+/* ── Bottom Articles Grid ──────────────────────────────────────────────── */
 .home-bottom-articles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: rgba(201,150,12,0.06);
-  border-top: 1px solid rgba(201,150,12,0.08);
+  gap: 8px;
+  padding: 0 8px 8px;
 }
 
 .article-skeleton {
-  height: 320px;
+  min-height: 300px;
   background: linear-gradient(90deg, var(--black3) 0%, #1e1a12 50%, var(--black3) 100%);
   background-size: 200% 100%;
   animation: home-shimmer 1.8s infinite;
 }
 
 .article-preview-empty {
-  height: 220px;
+  min-height: 220px;
   background: var(--black2);
   display: flex;
   align-items: center;
@@ -359,15 +296,14 @@
   color: rgba(201,150,12,0.18);
 }
 
-/* ── Shimmer animation ───────────────────────────────────── */
 @keyframes home-shimmer {
-  0% { background-position: 200% 0; }
+  0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
    MARQUEE
-═══════════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════════════════════ */
 .marquee {
   overflow: hidden;
   border-top: 1px solid rgba(201,150,12,0.12);
@@ -396,17 +332,12 @@
 
 .marquee__dot { color: var(--gold); font-size: 8px; }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
+@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 
-/* ═══════════════════════════════════════════════════════════
-   SECTIONS (shared)
-═══════════════════════════════════════════════════════════ */
-.section {
-  padding: 80px 56px;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════════════════════════════════════════ */
+.section { padding: 80px 56px; }
 
 .section__header {
   display: flex;
@@ -425,26 +356,26 @@
   color: var(--gold-dim);
   transition: color 0.25s;
 }
-
 .section__more:hover { color: var(--gold-light); }
 
-/* ═══════════════════════════════════════════════════════════
-   PAST ISSUES (magazine thumbnails)
-═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAST ISSUES SCROLL ROW
+═══════════════════════════════════════════════════════════════════════════ */
 .magazines-section { background: var(--black2); }
 
 .magazines-row {
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: var(--gold-dim) transparent;
 }
 
 .mag-thumb {
   flex-shrink: 0;
-  width: 180px;
+  width: 160px;
   text-decoration: none;
   color: inherit;
   display: flex;
@@ -453,8 +384,8 @@
 }
 
 .mag-thumb__cover {
-  width: 180px;
-  height: 245px;
+  width: 160px;
+  height: 220px;
   overflow: hidden;
   background: var(--black3);
   border: 1px solid rgba(201,150,12,0.15);
@@ -486,7 +417,7 @@
 
 .mag-thumb__name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 30px;
+  font-size: 28px;
   font-style: italic;
   color: var(--gold-light);
   letter-spacing: 2px;
@@ -513,9 +444,9 @@
   letter-spacing: 1px;
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
    CTA BANNER
-═══════════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════════════════════ */
 .cta-banner {
   padding: 96px 56px;
   border-top: 1px solid rgba(201,150,12,0.12);
@@ -529,7 +460,7 @@
 
 .cta-banner__title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: clamp(28px, 4vw, 52px);
   font-weight: 300;
   color: var(--white);
 }
@@ -542,9 +473,7 @@
   margin-bottom: 8px;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BUTTONS
-═══════════════════════════════════════════════════════════ */
+/* ── Buttons ───────────────────────────────────────────────────────────── */
 .btn-primary {
   font-size: 10px;
   font-weight: 600;
@@ -557,15 +486,14 @@
   display: inline-block;
   text-decoration: none;
 }
-
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(201,150,12,0.35);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   LOADING DOTS
-═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   LOADING
+═══════════════════════════════════════════════════════════════════════════ */
 .loading {
   display: flex;
   gap: 8px;
@@ -580,40 +508,162 @@
   background: var(--gold-dim);
   animation: pulse 1.2s ease-in-out infinite;
 }
-
 .loading__dot:nth-child(2) { animation-delay: 0.2s; }
 .loading__dot:nth-child(3) { animation-delay: 0.4s; }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
-}
+@keyframes pulse { 0%, 100% { opacity: 0.2 } 50% { opacity: 1 } }
 
-/* ═══════════════════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (601px – 1024px)
+═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .home-layout { grid-template-columns: 60px 1fr 60px; }
-  .side-ad { width: 48px; height: 240px; }
+  .home-layout { grid-template-columns: 56px 1fr 56px; }
+  .side-ad { width: 44px; height: 240px; }
+  .side-ad__text { font-size: 8px; }
+
+  .section { padding: 56px 32px; }
+  .cta-banner { padding: 72px 32px; }
 }
 
-@media (max-width: 768px) {
-  .home-layout { grid-template-columns: 0 1fr 0; }
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 600px)
+═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+
+  /* Kill side ads entirely */
+  .home-layout { grid-template-columns: 1fr; padding-top: 62px; }
   .home-side { display: none; }
 
-  .home-sub-row { grid-template-columns: 1fr; }
-  .sub-card { border-right: none; border-bottom: 1px solid rgba(201,150,12,0.08); }
+  /* Banner ad — thinner on mobile */
+  .home-banner-ad { height: 56px; }
 
-  .home-mid { grid-template-columns: 1fr; }
-  .home-mid__v1 { grid-column: 1; grid-row: 1; }
-  .home-mid__v2 { grid-column: 1; grid-row: 2; }
-  .home-mid__cover { grid-column: 1; grid-row: 3; border-left: none; border-top: 1px solid rgba(201,150,12,0.1); }
-  .home-mid__v3 { grid-column: 1; grid-row: 4; }
-  .home-mid__a1 { grid-column: 1; grid-row: 5; border-left: none; }
+  /* Sub carousels — horizontal swipe row */
+  .home-sub-row {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding: 0 8px;
+  }
+  .home-sub-row::-webkit-scrollbar { display: none; }
 
-  .home-bottom-articles { grid-template-columns: 1fr; }
+  .home-sub-item {
+    flex: 0 0 85vw;
+    max-width: 85vw;
+    border: 1px solid rgba(201,150,12,0.08);
+  }
 
-  .section { padding: 48px 20px; }
-  .cta-banner { padding: 64px 20px; }
-  .magazines-row { padding-bottom: 12px; }
+  /* Mid grid — full single column stack */
+  .home-mid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .home-mid__videos { order: 1; }
+  .home-mid__videos .video-embed { aspect-ratio: 16 / 5; }
+
+  .home-mid__cover {
+    order: 2;
+    border: 1px solid rgba(201,150,12,0.1);
+    height: auto;
+    min-height: 0;
+  }
+
+  /* On mobile, show cover as a normal tall image block */
+  .issue-cover {
+    flex-direction: row;
+    height: auto;
+    padding: 16px;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .issue-cover__eyebrow {
+    display: none;
+  }
+
+  .issue-cover__mag {
+    flex: 0 0 110px;
+    width: 110px;
+    height: 150px;
+    position: relative;
+  }
+
+  .issue-cover__mag::after {
+    display: none;
+  }
+
+  .issue-cover__mag-footer {
+    position: static;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-self: flex-end;
+    align-items: flex-start;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+
+  .issue-cover__title {
+    font-size: 11px;
+    color: rgba(245,240,232,0.7);
+    text-shadow: none;
+  }
+
+  .issue-cover__link {
+    font-size: 9px;
+    color: var(--gold-light);
+  }
+
+  .home-mid__video3 {
+    order: 3;
+    border: 1px solid rgba(201,150,12,0.08);
+  }
+  .home-mid__video3 .video-embed { aspect-ratio: 16 / 5; }
+
+  .home-mid__a1 {
+    order: 4;
+    border: 1px solid rgba(201,150,12,0.08);
+  }
+
+  /* Bottom articles — single column */
+  .home-bottom-articles {
+    grid-template-columns: 1fr;
+    padding: 0 8px 8px;
+  }
+
+  /* Sections */
+  .section { padding: 40px 16px; }
+  .section__header { margin-bottom: 28px; }
+
+  /* Magazines row stays horizontal scroll but smaller cards */
+  .mag-thumb { width: 130px; }
+  .mag-thumb__cover { width: 130px; height: 178px; }
+
+  /* CTA */
+  .cta-banner { padding: 56px 16px; gap: 12px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — SMALL TABLET (601px – 768px)
+═══════════════════════════════════════════════════════════════════════════ */
+@media (min-width: 601px) and (max-width: 768px) {
+  .home-mid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .home-mid__videos { grid-column: 1 / 3; grid-row: 1; }
+  .home-mid__cover  { grid-column: 1; grid-row: 2; border: 1px solid rgba(201,150,12,0.1); }
+  .home-mid__video3 { grid-column: 2; grid-row: 2; }
+  .home-mid__a1     { grid-column: 1 / 3; grid-row: 3; border: 1px solid rgba(201,150,12,0.08); }
+
+  .home-bottom-articles { grid-template-columns: repeat(2, 1fr); }
+
+  .section { padding: 48px 24px; }
+  .cta-banner { padding: 64px 24px; }
 }

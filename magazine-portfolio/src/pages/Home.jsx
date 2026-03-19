@@ -7,7 +7,6 @@ import MainCarousel from '../components/MainCarousel'
 import SubCarousel from '../components/SubCarousel'
 import './Home.css'
 
-// ─── MAIN CAROUSEL 1 ────────────────────────────────────────────────────────
 const MAIN_CAROUSEL = {
   category: 'International',
   title: 'Japan-ASEAN Collaboration',
@@ -22,11 +21,10 @@ const MAIN_CAROUSEL = {
   ],
 }
 
-// ─── SUB CAROUSELS 2 / 3 / 4 ────────────────────────────────────────────────
 const SUB_CAROUSELS = [
   {
     title: 'Boss Magazine PH Goes Global',
-    description: 'From the Philippines to the world — official international media partner covering premier events across India, Africa, Malaysia, and Kenya.',
+    description: 'Official international media partner — India, Africa, Malaysia, and Kenya.',
     objectFit: 'cover',
     images: [
       'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/1.png',
@@ -37,7 +35,7 @@ const SUB_CAROUSELS = [
   },
   {
     title: 'Upcoming Expos 2026',
-    description: 'Boss Magazine PH as official media partner — Malaysia & Philippines.',
+    description: 'Boss Magazine PH as official media partner.',
     objectFit: 'contain',
     images: [
       'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20CONSTRUCTION%20EXPO%202026.jpg',
@@ -48,7 +46,7 @@ const SUB_CAROUSELS = [
   },
   {
     title: 'Boss Magazine PH Events',
-    description: 'Highlights from our coverage of premier events across the Philippines.',
+    description: 'Highlights from premier events across the Philippines.',
     objectFit: 'cover',
     images: [
       'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/1.png',
@@ -61,12 +59,8 @@ const SUB_CAROUSELS = [
   },
 ]
 
-// ─── YOUTUBE VIDEO IDs ───────────────────────────────────────────────────────
 const YOUTUBE_IDS = ['pLx5EIT0jzY', 'iYBtU81QlCQ', '9jKHgBnvlsw']
-
-// ─── JANUARY 2026 ISSUE COVER ────────────────────────────────────────────────
 const JAN_2026_COVER = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/Magazine%20Issues/JANUARY%202026%20ISSUE/1%20Cover%20Page.png'
-
 const marqueeItems = ['Boss Magazine Ph', 'Cover Stories', 'Feature Articles', 'Exclusive Interviews', 'Filipino Excellence', 'Since 2014']
 
 function AdBanner() {
@@ -113,9 +107,11 @@ function IssueCover() {
       <span className="issue-cover__eyebrow">Current Issue</span>
       <div className="issue-cover__mag">
         <img src={JAN_2026_COVER} alt="January 2026 Issue" className="issue-cover__img" />
+        <div className="issue-cover__mag-footer">
+          <p className="issue-cover__title">January 2026</p>
+          <Link to="/magazines" className="issue-cover__link">View Issue →</Link>
+        </div>
       </div>
-      <p className="issue-cover__title">January 2026</p>
-      <Link to="/magazines" className="issue-cover__link">View Issue →</Link>
     </div>
   )
 }
@@ -139,21 +135,17 @@ export default function Home() {
   return (
     <main className="home">
 
-      {/* ── 3-COLUMN LAYOUT ────────────────────────────────────────────────── */}
+      {/* ── 3-COLUMN LAYOUT ─────────────────────────────────── */}
       <div className="home-layout">
 
-        {/* LEFT AD */}
         <aside className="home-side home-side--left">
           <SideAd />
         </aside>
 
-        {/* CENTER */}
         <div className="home-center">
 
-          {/* BANNER ADS 1 */}
           <AdBanner />
 
-          {/* MAIN CAROUSEL 1 */}
           <MainCarousel
             images={MAIN_CAROUSEL.images}
             category={MAIN_CAROUSEL.category}
@@ -161,35 +153,33 @@ export default function Home() {
             description={MAIN_CAROUSEL.description}
           />
 
-          {/* SUB CAROUSELS 2 / 3 / 4 */}
+          {/* SUB CAROUSELS — horizontal scroll on mobile */}
           <div className="home-sub-row">
             {SUB_CAROUSELS.map((sc, i) => (
-              <SubCarousel
-                key={i}
-                num={i}
-                images={sc.images}
-                title={sc.title}
-                description={sc.description}
-                objectFit={sc.objectFit}
-              />
+              <div key={i} className="home-sub-item">
+                <SubCarousel
+                  num={i}
+                  images={sc.images}
+                  title={sc.title}
+                  description={sc.description}
+                  objectFit={sc.objectFit}
+                />
+              </div>
             ))}
           </div>
 
-          {/* VIDEO + ISSUE COVER GRID */}
+          {/* VIDEO + ISSUE COVER — stacks on mobile */}
           <div className="home-mid">
-            <div className="home-mid__v1">
+            <div className="home-mid__videos">
               <VideoEmbed videoId={YOUTUBE_IDS[0]} label="Video Feature 1" />
+              <VideoEmbed videoId={YOUTUBE_IDS[1]} label="Video Feature 2" />
             </div>
 
             <div className="home-mid__cover">
               <IssueCover />
             </div>
 
-            <div className="home-mid__v2">
-              <VideoEmbed videoId={YOUTUBE_IDS[1]} label="Video Feature 2" />
-            </div>
-
-            <div className="home-mid__v3">
+            <div className="home-mid__video3">
               <VideoEmbed videoId={YOUTUBE_IDS[2]} label="Video Feature 3" />
             </div>
 
@@ -204,7 +194,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* BOTTOM ARTICLE PREVIEWS 2 / 3 / 4 */}
+          {/* BOTTOM ARTICLES */}
           <div className="home-bottom-articles">
             {loading
               ? Array(3).fill(null).map((_, i) => <div key={i} className="article-skeleton" />)
@@ -220,7 +210,6 @@ export default function Home() {
 
         </div>
 
-        {/* RIGHT AD */}
         <aside className="home-side home-side--right">
           <SideAd />
         </aside>
@@ -265,7 +254,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA BANNER */}
+      {/* CTA */}
       <section className="cta-banner">
         <h2 className="cta-banner__title">Explore the Full Archive</h2>
         <p className="cta-banner__sub">Hundreds of stories. Decades of Filipino excellence.</p>
