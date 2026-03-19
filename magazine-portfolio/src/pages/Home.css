@@ -139,7 +139,7 @@
 .video-embed {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 5;
+  aspect-ratio: 16 / 9;
   background: var(--black3);
   overflow: hidden;
 }
@@ -563,7 +563,7 @@
   }
 
   .home-mid__videos { order: 1; }
-  .home-mid__videos .video-embed { aspect-ratio: 16 / 5; }
+  .home-mid__videos .video-embed { aspect-ratio: 16 / 9; }
 
   .home-mid__cover {
     order: 2;
@@ -572,46 +572,45 @@
     min-height: 0;
   }
 
-  /* On mobile, show cover as a normal tall image block */
+  /* Mobile cover — full width, tall portrait block */
   .issue-cover {
-    flex-direction: row;
+    flex-direction: column;
     height: auto;
-    padding: 16px;
-    gap: 16px;
-    align-items: flex-start;
+    min-height: 320px;
   }
 
   .issue-cover__eyebrow {
-    display: none;
+    display: block;
+    position: absolute;
+    top: 10px;
   }
 
   .issue-cover__mag {
-    flex: 0 0 110px;
-    width: 110px;
-    height: 150px;
+    flex: 1;
+    width: 100%;
+    min-height: 300px;
     position: relative;
   }
 
   .issue-cover__mag::after {
-    display: none;
+    display: block;
   }
 
   .issue-cover__mag-footer {
-    position: static;
-    flex: 1;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-self: flex-end;
-    align-items: flex-start;
-    gap: 6px;
-    padding-bottom: 4px;
+    align-items: center;
+    gap: 4px;
   }
 
   .issue-cover__title {
     font-size: 11px;
-    color: rgba(245,240,232,0.7);
-    text-shadow: none;
+    color: rgba(245,240,232,0.9);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
   }
 
   .issue-cover__link {
@@ -623,7 +622,7 @@
     order: 3;
     border: 1px solid rgba(201,150,12,0.08);
   }
-  .home-mid__video3 .video-embed { aspect-ratio: 16 / 5; }
+  .home-mid__video3 .video-embed { aspect-ratio: 16 / 9; }
 
   .home-mid__a1 {
     order: 4;

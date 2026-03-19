@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import Lightbox from './Lightbox'
 import './SubCarousel.css'
 
 const BASE_INTERVAL = 3500
 
 export default function SubCarousel({ images = [], title = '', description = '', objectFit = 'cover', num = 0 }) {
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent]   = useState(0)
   const [lightbox, setLightbox] = useState(null)
-  const timerRef = useRef(null)
-  const interval = BASE_INTERVAL + num * 400
+  const timerRef  = useRef(null)
+  const interval  = BASE_INTERVAL + num * 400
 
-  const next = useCallback(() => setCurrent(prev => (prev + 1) % images.length), [images.length])
+  const next = useCallback(() => setCurrent(p => (p + 1) % images.length), [images.length])
 
   const startTimer = useCallback(() => {
     clearInterval(timerRef.current)
@@ -23,25 +24,16 @@ export default function SubCarousel({ images = [], title = '', description = '',
   }, [startTimer, images.length])
 
   useEffect(() => {
-    if (lightbox !== null) {
-      clearInterval(timerRef.current)
-    } else {
-      if (images.length >= 2) startTimer()
-    }
+    if (lightbox !== null) clearInterval(timerRef.current)
+    else if (images.length >= 2) startTimer()
   }, [lightbox, images.length, startTimer])
 
-  useEffect(() => {
-    const onKey = (e) => {
-      if (lightbox === null) return
-      if (e.key === 'Escape') setLightbox(null)
-      if (e.key === 'ArrowRight') setLightbox(prev => (prev + 1) % images.length)
-      if (e.key === 'ArrowLeft')  setLightbox(prev => (prev - 1 + images.length) % images.length)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [lightbox, images.length])
-
-  const goTo = (i) => { setCurrent(i); startTimer() }
+  const goTo   = (i) => { setCurrent(i); startTimer() }
+  const lbNext = useCallback((i) => {
+    if (typeof i === 'number') setLightbox(i)
+    else setLightbox(p => (p + 1) % images.length)
+  }, [images.length])
+  const lbPrev = useCallback(() => setLightbox(p => (p - 1 + images.length) % images.length), [images.length])
 
   if (!images.length) return (
     <div className="sub-carousel sub-carousel--empty">
@@ -61,7 +53,6 @@ export default function SubCarousel({ images = [], title = '', description = '',
                 className="sub-carousel__img"
                 style={{ objectFit }}
                 onClick={() => setLightbox(i)}
-                title="Click to view full image"
               />
             </div>
           ))}
@@ -88,42 +79,14 @@ export default function SubCarousel({ images = [], title = '', description = '',
         </div>
       </div>
 
-      {/* LIGHTBOX */}
       {lightbox !== null && (
-        <div className="lightbox" onClick={() => setLightbox(null)}>
-          <button className="lightbox__close" onClick={() => setLightbox(null)} aria-label="Close">&#10005;</button>
-
-          <button
-            className="lightbox__arrow lightbox__arrow--prev"
-            onClick={(e) => { e.stopPropagation(); setLightbox(prev => (prev - 1 + images.length) % images.length) }}
-            aria-label="Previous"
-          >&#8592;</button>
-
-          <div className="lightbox__img-wrap" onClick={e => e.stopPropagation()}>
-            <img src={images[lightbox]} alt={`${title} ${lightbox + 1}`} className="lightbox__img" />
-          </div>
-
-          <button
-            className="lightbox__arrow lightbox__arrow--next"
-            onClick={(e) => { e.stopPropagation(); setLightbox(prev => (prev + 1) % images.length) }}
-            aria-label="Next"
-          >&#8594;</button>
-
-          <div className="lightbox__counter">
-            {String(lightbox + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
-          </div>
-
-          <div className="lightbox__dots">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                className={`lightbox__dot ${i === lightbox ? 'active' : ''}`}
-                onClick={(e) => { e.stopPropagation(); setLightbox(i) }}
-                aria-label={`Image ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
+        <Lightbox
+          images={images}
+          current={lightbox}
+          onClose={() => setLightbox(null)}
+          onNext={lbNext}
+          onPrev={lbPrev}
+        />
       )}
     </>
   )

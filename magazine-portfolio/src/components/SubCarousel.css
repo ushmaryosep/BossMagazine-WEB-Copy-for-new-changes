@@ -126,10 +126,7 @@
   .sub-carousel__info { bottom: 30px; padding: 0 14px; }
 }
 
-/* ── Zoom hint ──────────────────────────────────────────── */
-.sub-carousel__img {
-  cursor: zoom-in;
-}
+.sub-carousel__img { cursor: zoom-in; }
 
 .sub-carousel__zoom-hint {
   position: absolute;
@@ -137,11 +134,8 @@
   right: 10px;
   z-index: 4;
   font-size: 13px;
-  opacity: 0.3;
+  opacity: 0.28;
   pointer-events: none;
   transition: opacity 0.3s;
 }
-.sub-carousel:hover .sub-carousel__zoom-hint { opacity: 0.65; }
-
-/* ── Lightbox (shared styles live in MainCarousel.css) ── */
-/* SubCarousel lightbox uses .lightbox classes — no duplication needed */
+.sub-carousel:hover .sub-carousel__zoom-hint { opacity: 0.6; }
