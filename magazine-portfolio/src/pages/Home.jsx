@@ -6,6 +6,7 @@ import ArticleCard from '../components/ArticleCard'
 import MainCarousel from '../components/MainCarousel'
 import SubCarousel from '../components/SubCarousel'
 import Gallery from '../components/Gallery'
+import MagazineViewer from '../components/MagazineViewer'
 import './Home.css'
 
 const MAIN_CAROUSEL = {
@@ -148,23 +149,17 @@ function SideAd() {
 }
 
 function VideoEmbed({ videoId, label }) {
+  if (!videoId) return null
   return (
     <div className="video-embed">
-      {videoId ? (
-        <iframe
-          className="video-embed__frame"
-          src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
-          title={label}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      ) : (
-        <div className="video-embed__placeholder">
-          <div className="video-embed__play-icon">&#9654;</div>
-          <span className="video-embed__label">{label}</span>
-        </div>
-      )}
+      <iframe
+        className="video-embed__frame"
+        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+        title={label}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
     </div>
   )
 }
@@ -187,6 +182,7 @@ function IssueCover() {
 export default function Home() {
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(true)
+  const [viewingMag, setViewingMag] = useState(null)
 
   useEffect(() => {
     supabase
@@ -201,6 +197,7 @@ export default function Home() {
   }, [])
 
   return (
+    <>
     <main className="home">
 
       {/* ── 3-COLUMN LAYOUT ─────────────────────────────────── */}
@@ -303,7 +300,7 @@ export default function Home() {
         </div>
         <div className="magazines-row">
           {magazines.map(mag => (
-            <Link key={mag.id} to="/magazines" className="mag-thumb">
+            <div key={mag.id} className="mag-thumb" onClick={() => setViewingMag(mag)} role="button" tabIndex={0} onKeyDown={e => e.key === 'Enter' && setViewingMag(mag)}>
               <div className="mag-thumb__cover">
                 {mag.cover_image
                   ? <img src={mag.cover_image} alt={mag.title} />
@@ -314,10 +311,11 @@ export default function Home() {
                     </div>
                   )
                 }
+                <div className="mag-thumb__overlay"><span>Read →</span></div>
               </div>
               <span className="mag-thumb__title">{mag.title}</span>
               <span className="mag-thumb__date">{mag.date}</span>
-            </Link>
+            </div>
           ))}
         </div>
       </section>
@@ -336,5 +334,10 @@ export default function Home() {
       </section>
 
     </main>
+
+      {viewingMag && (
+        <MagazineViewer magazine={viewingMag} onClose={() => setViewingMag(null)} />
+      )}
+    </>
   )
 }
