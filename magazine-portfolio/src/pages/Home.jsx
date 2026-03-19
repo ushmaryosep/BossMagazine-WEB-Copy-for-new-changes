@@ -3,8 +3,122 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import magazines from '../data/magazines'
 import ArticleCard from '../components/ArticleCard'
-import MagazineCard from '../components/MagazineCard'
+import MainCarousel from '../components/MainCarousel'
+import SubCarousel from '../components/SubCarousel'
 import './Home.css'
+
+// ─── MAIN CAROUSEL 1 ────────────────────────────────────────────────────────
+const MAIN_CAROUSEL = {
+  category: 'International',
+  title: 'Japan-ASEAN Collaboration',
+  description: 'Japan investors took time to visit Bases Conversion and Development Corporation (BCDA) in Clark City, Pampanga to meet with the executives of Investment and Promotions VP. Alongside with the visit, they also dropped by the Malacañang Museum to visit the palace. / Boss Magazine PH',
+  images: [
+    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/1.png',
+    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/2.png',
+    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/3.png',
+    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/4.png',
+    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/5.png',
+    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/6.png',
+  ],
+}
+
+// ─── SUB CAROUSELS 2 / 3 / 4 ────────────────────────────────────────────────
+const SUB_CAROUSELS = [
+  {
+    title: 'Boss Magazine PH Goes Global',
+    description: 'From the Philippines to the world — official international media partner covering premier events across India, Africa, Malaysia, and Kenya.',
+    objectFit: 'cover',
+    images: [
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/1.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/2.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/3.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/4.png',
+    ],
+  },
+  {
+    title: 'Upcoming Expos 2026',
+    description: 'Boss Magazine PH as official media partner — Malaysia & Philippines.',
+    objectFit: 'contain',
+    images: [
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20CONSTRUCTION%20EXPO%202026.jpg',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20ELECTRICITY%20EXPO%202026.jpg',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/PH%20CONSTRUCTION%20EXPO%202026.jpg',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/PH%20PHARMA%20EXPO%202026.jpg',
+    ],
+  },
+  {
+    title: 'Boss Magazine PH Events',
+    description: 'Highlights from our coverage of premier events across the Philippines.',
+    objectFit: 'cover',
+    images: [
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/1.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/2.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/3.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/4.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/5.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/6.png',
+    ],
+  },
+]
+
+// ─── YOUTUBE VIDEO IDs ───────────────────────────────────────────────────────
+const YOUTUBE_IDS = ['pLx5EIT0jzY', 'iYBtU81QlCQ', '9jKHgBnvlsw']
+
+// ─── JANUARY 2026 ISSUE COVER ────────────────────────────────────────────────
+const JAN_2026_COVER = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/Magazine%20Issues/JANUARY%202026%20ISSUE/1%20Cover%20Page.png'
+
+const marqueeItems = ['Boss Magazine Ph', 'Cover Stories', 'Feature Articles', 'Exclusive Interviews', 'Filipino Excellence', 'Since 2014']
+
+function AdBanner() {
+  return (
+    <div className="home-banner-ad">
+      <span className="home-banner-ad__text">Advertisement</span>
+    </div>
+  )
+}
+
+function SideAd() {
+  return (
+    <div className="side-ad">
+      <span className="side-ad__text">AD</span>
+    </div>
+  )
+}
+
+function VideoEmbed({ videoId, label }) {
+  return (
+    <div className="video-embed">
+      {videoId ? (
+        <iframe
+          className="video-embed__frame"
+          src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+          title={label}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <div className="video-embed__placeholder">
+          <div className="video-embed__play-icon">&#9654;</div>
+          <span className="video-embed__label">{label}</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function IssueCover() {
+  return (
+    <div className="issue-cover">
+      <span className="issue-cover__eyebrow">Current Issue</span>
+      <div className="issue-cover__mag">
+        <img src={JAN_2026_COVER} alt="January 2026 Issue" className="issue-cover__img" />
+      </div>
+      <p className="issue-cover__title">January 2026</p>
+      <Link to="/magazines" className="issue-cover__link">View Issue →</Link>
+    </div>
+  )
+}
 
 export default function Home() {
   const [articles, setArticles] = useState([])
@@ -13,7 +127,7 @@ export default function Home() {
   useEffect(() => {
     supabase
       .from('articles')
-      .select('id, title, excerpt, cover_image, category, author, published_at, created_at')
+      .select('id, title, excerpt, cover_image, category, author, published_at')
       .order('published_at', { ascending: false })
       .limit(4)
       .then(({ data }) => {
@@ -22,37 +136,96 @@ export default function Home() {
       })
   }, [])
 
-  const marqueeItems = ['Boss Magazine Ph', 'Cover Stories', 'Feature Articles', 'Exclusive Interviews', 'Filipino Excellence', 'Since 2014']
-
   return (
     <main className="home">
 
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero__bg" />
-        <div className="hero__content">
-          <p className="hero__eyebrow">The Philippines' Premier Magazine</p>
-          <h1 className="hero__headline">
-            Where Power<br />Meets <em>Prestige</em>
-          </h1>
-          <p className="hero__sub">
-            Showcasing the stories, faces, and voices that define Filipino excellence — in print and beyond.
-          </p>
-          <div className="hero__actions">
-            <Link to="/articles" className="btn-primary">Browse Articles</Link>
-            <Link to="/magazines" className="btn-ghost">View Issues <span>→</span></Link>
-          </div>
-        </div>
+      {/* ── 3-COLUMN LAYOUT ────────────────────────────────────────────────── */}
+      <div className="home-layout">
 
-        <div className="hero__visual">
-          <div className="hero__cover-stack">
-            <div className="hero__cover hero__cover--back" />
-            <div className="hero__cover hero__cover--front">
-              <img src="/logo.png" alt="Boss Magazine Ph" className="hero__cover-logo" />
+        {/* LEFT AD */}
+        <aside className="home-side home-side--left">
+          <SideAd />
+        </aside>
+
+        {/* CENTER */}
+        <div className="home-center">
+
+          {/* BANNER ADS 1 */}
+          <AdBanner />
+
+          {/* MAIN CAROUSEL 1 */}
+          <MainCarousel
+            images={MAIN_CAROUSEL.images}
+            category={MAIN_CAROUSEL.category}
+            title={MAIN_CAROUSEL.title}
+            description={MAIN_CAROUSEL.description}
+          />
+
+          {/* SUB CAROUSELS 2 / 3 / 4 */}
+          <div className="home-sub-row">
+            {SUB_CAROUSELS.map((sc, i) => (
+              <SubCarousel
+                key={i}
+                num={i}
+                images={sc.images}
+                title={sc.title}
+                description={sc.description}
+                objectFit={sc.objectFit}
+              />
+            ))}
+          </div>
+
+          {/* VIDEO + ISSUE COVER GRID */}
+          <div className="home-mid">
+            <div className="home-mid__v1">
+              <VideoEmbed videoId={YOUTUBE_IDS[0]} label="Video Feature 1" />
+            </div>
+
+            <div className="home-mid__cover">
+              <IssueCover />
+            </div>
+
+            <div className="home-mid__v2">
+              <VideoEmbed videoId={YOUTUBE_IDS[1]} label="Video Feature 2" />
+            </div>
+
+            <div className="home-mid__v3">
+              <VideoEmbed videoId={YOUTUBE_IDS[2]} label="Video Feature 3" />
+            </div>
+
+            <div className="home-mid__a1">
+              {loading ? (
+                <div className="article-skeleton" />
+              ) : articles[0] ? (
+                <ArticleCard article={articles[0]} />
+              ) : (
+                <div className="article-preview-empty"><span>Article Preview 1</span></div>
+              )}
             </div>
           </div>
+
+          {/* BOTTOM ARTICLE PREVIEWS 2 / 3 / 4 */}
+          <div className="home-bottom-articles">
+            {loading
+              ? Array(3).fill(null).map((_, i) => <div key={i} className="article-skeleton" />)
+              : articles.slice(1, 4).length > 0
+                ? articles.slice(1, 4).map(a => <ArticleCard key={a.id} article={a} />)
+                : Array(3).fill(null).map((_, i) => (
+                    <div key={i} className="article-preview-empty">
+                      <span>Article Preview {i + 2}</span>
+                    </div>
+                  ))
+            }
+          </div>
+
         </div>
-      </section>
+
+        {/* RIGHT AD */}
+        <aside className="home-side home-side--right">
+          <SideAd />
+        </aside>
+
+      </div>
 
       {/* MARQUEE */}
       <div className="marquee">
@@ -65,51 +238,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* STATS */}
-      <section className="stats">
-        {[
-          { num: '10+', label: 'Years of Excellence' },
-          { num: '48+', label: 'Issues Published' },
-          { num: '200+', label: 'Articles Written' },
-        ].map(({ num, label }) => (
-          <div key={label} className="stats__item">
-            <span className="stats__num">{num}</span>
-            <span className="stats__label">{label}</span>
-          </div>
-        ))}
-      </section>
-
-      {/* LATEST ARTICLES */}
-      <section className="section articles-section">
-        <div className="section__header">
-          <p className="section-label">Latest Articles</p>
-          <Link to="/articles" className="section__more">View All →</Link>
-        </div>
-
-        {loading ? (
-          <div className="loading">
-            <span className="loading__dot" />
-            <span className="loading__dot" />
-            <span className="loading__dot" />
-          </div>
-        ) : articles.length > 0 ? (
-          <div className="articles-grid">
-            {articles[0] && (
-              <div className="articles-grid__featured">
-                <ArticleCard article={articles[0]} featured />
-              </div>
-            )}
-            <div className="articles-grid__side">
-              {articles.slice(1).map(a => (
-                <ArticleCard key={a.id} article={a} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <p className="empty-state">Articles coming soon.</p>
-        )}
-      </section>
-
       {/* PAST ISSUES */}
       <section className="section magazines-section">
         <div className="section__header">
@@ -118,18 +246,30 @@ export default function Home() {
         </div>
         <div className="magazines-row">
           {magazines.map(mag => (
-            <MagazineCard key={mag.id} magazine={mag} />
+            <Link key={mag.id} to="/magazines" className="mag-thumb">
+              <div className="mag-thumb__cover">
+                {mag.cover_image
+                  ? <img src={mag.cover_image} alt={mag.title} />
+                  : (
+                    <div className="mag-thumb__placeholder">
+                      <span className="mag-thumb__name">Boss</span>
+                      <span className="mag-thumb__issue">{mag.issue}</span>
+                    </div>
+                  )
+                }
+              </div>
+              <span className="mag-thumb__title">{mag.title}</span>
+              <span className="mag-thumb__date">{mag.date}</span>
+            </Link>
           ))}
         </div>
       </section>
 
       {/* CTA BANNER */}
       <section className="cta-banner">
-        <div className="cta-banner__inner">
-          <h2 className="cta-banner__title">Explore the Full Archive</h2>
-          <p className="cta-banner__sub">Hundreds of stories. Decades of Filipino excellence.</p>
-          <Link to="/articles" className="btn-primary">Browse All Articles</Link>
-        </div>
+        <h2 className="cta-banner__title">Explore the Full Archive</h2>
+        <p className="cta-banner__sub">Hundreds of stories. Decades of Filipino excellence.</p>
+        <Link to="/articles" className="btn-primary">Browse All Articles</Link>
       </section>
 
     </main>
