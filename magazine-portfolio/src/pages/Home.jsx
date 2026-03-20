@@ -188,10 +188,22 @@ export default function Home() {
     supabase
       .from('articles')
       .select('id, title, excerpt, cover_image, category, author, published_at')
+      .gte('published_at', '2026-01-01')
+      .lte('published_at', '2026-01-31')
       .order('published_at', { ascending: false })
       .limit(4)
-      .then(({ data }) => {
-        setArticles(data || [])
+      .then(({ data, error }) => {
+        if (data && data.length > 0) {
+          setArticles(data)
+        } else {
+          // Fallback: just get the 4 most recent articles if no Jan 2026 found
+          supabase
+            .from('articles')
+            .select('id, title, excerpt, cover_image, category, author, published_at')
+            .order('published_at', { ascending: false })
+            .limit(4)
+            .then(({ data: fallback }) => setArticles(fallback || []))
+        }
         setLoading(false)
       })
   }, [])
