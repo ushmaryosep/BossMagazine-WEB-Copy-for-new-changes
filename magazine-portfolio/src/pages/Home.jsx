@@ -130,7 +130,7 @@ function StatsCounter() {
   )
 }
 
-const marqueeItems = ['Boss Magazine Ph', 'Cover Stories', 'Feature Articles', 'Exclusive Interviews', 'Filipino Excellence', 'Since 2014']
+const marqueeItems = ['Boss Magazine Ph', 'Cover Stories', 'Feature Articles', 'Exclusive Interviews', 'Filipino Excellence', 'Advertise With Us Now!']
 
 function AdBanner() {
   return (
