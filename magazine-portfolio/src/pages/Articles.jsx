@@ -22,7 +22,16 @@ export default function Articles() {
         supabase.from('articles').select('category'),
       ])
       const all = [...(d1 || []), ...(d2 || [])]
-      const cats = [...new Set(all.map(a => a.category).filter(Boolean))]
+      const seen = new Set()
+      const cats = all
+        .map(a => a.category)
+        .filter(Boolean)
+        .filter(cat => {
+          const key = cat.toLowerCase().trim()
+          if (seen.has(key)) return false
+          seen.add(key)
+          return true
+        })
       setAllTags(cats)
     }
     loadTags()
