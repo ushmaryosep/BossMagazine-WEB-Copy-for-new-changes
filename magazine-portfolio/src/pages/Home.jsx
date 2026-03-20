@@ -136,7 +136,7 @@ function AdBanner() {
   return (
     <div className="home-banner-ad">
       <img
-        src="https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/BannerAdBlueOak.png?raw=true"
+        src="https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/blueoakbannerads.png?raw=true"
         alt="Advertisement"
         className="home-banner-ad__img"
       />

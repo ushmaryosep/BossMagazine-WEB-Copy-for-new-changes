@@ -58,7 +58,6 @@
 /* ── Banner Ad ─────────────────────────────────────────────────────────── */
 .home-banner-ad {
   width: 100%;
-  height: 220px;
   background: var(--black2);
   border-bottom: 1px solid rgba(201,150,12,0.1);
   overflow: hidden;
@@ -68,10 +67,11 @@
 
 .home-banner-ad__img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  height: auto;
   display: block;
+  max-height: 250px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .home-banner-ad__text {
@@ -537,7 +537,7 @@
   .home-side { display: none; }
 
   /* Banner ad — natural height on mobile */
-  .home-banner-ad { height: 120px; }
+  .home-banner-ad__img { max-height: 130px; }
 
   /* Sub carousels — horizontal swipe row */
   .home-sub-row {
