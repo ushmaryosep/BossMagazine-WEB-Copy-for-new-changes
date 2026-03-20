@@ -189,7 +189,7 @@ export default function Home() {
       .from('articles')
       .select('id, title, excerpt, cover_image, category, author, published_at')
       .order('published_at', { ascending: false })
-      .limit(7)
+      .limit(4)
       .then(({ data }) => {
         setArticles(data || [])
         setLoading(false)
