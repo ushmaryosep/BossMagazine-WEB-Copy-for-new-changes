@@ -255,3 +255,91 @@
   .about-editorial__item:nth-last-child(1) { border-bottom: none; }
   .about-editorial__item:nth-last-child(2) { border-bottom: 1px solid rgba(201,150,12,0.08); }
 }
+
+/* ── Boss TV Section ──────────────────────────────────────────────────── */
+.about-bosstv {
+  border-top: 1px solid rgba(201,150,12,0.1);
+  padding: 72px 56px 80px;
+  background: var(--black);
+}
+
+.about-bosstv__inner { max-width: 960px; }
+.about-bosstv__header { margin-bottom: 40px; }
+
+.about-bosstv__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.about-bosstv__block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-bosstv__block-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.about-bosstv__block-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(201,150,12,0.15);
+}
+
+.about-bosstv__block-text {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(245,240,232,0.5);
+}
+
+.about-bosstv__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-bosstv__contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 14px;
+  border: 1px solid rgba(201,150,12,0.08);
+  text-decoration: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+.about-bosstv__contact:hover {
+  border-color: rgba(201,150,12,0.3);
+  background: rgba(201,150,12,0.04);
+}
+
+.about-bosstv__contact-type {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  min-width: 68px;
+  flex-shrink: 0;
+}
+
+.about-bosstv__contact-val {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(245,240,232,0.65);
+  word-break: break-all;
+}
+
+@media (max-width: 900px) {
+  .about-bosstv { padding: 48px 24px 56px; }
+  .about-bosstv__grid { grid-template-columns: 1fr; gap: 32px; }
+}

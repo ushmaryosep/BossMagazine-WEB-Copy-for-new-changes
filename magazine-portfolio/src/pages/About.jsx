@@ -47,6 +47,42 @@ export default function About() {
         </div>
       </div>
 
+      {/* ── BOSS TV ─────────────────────────────────────────────────────── */}
+      <section className="about-bosstv">
+        <div className="about-bosstv__inner">
+          <div className="about-bosstv__header">
+            <p className="section-label">Boss TV</p>
+          </div>
+          <div className="about-bosstv__grid">
+            <div className="about-bosstv__block">
+              <span className="about-bosstv__block-label">Address</span>
+              <p className="about-bosstv__block-text">
+                UP College of Law<br />
+                Bonifacio Global City<br />
+                Taguig City, 1604
+              </p>
+            </div>
+            <div className="about-bosstv__block">
+              <span className="about-bosstv__block-label">Contact</span>
+              <div className="about-bosstv__contacts">
+                {[
+                  { type: 'Viber',     val: '+63 915.928.0721', href: 'viber://chat?number=%2B639159280721' },
+                  { type: 'WhatsApp',  val: '+63 977.423.0751', href: 'https://wa.me/639774230751' },
+                  { type: 'Signal',    val: '+63 915.928.0721', href: 'https://signal.me/#p/+639159280721' },
+                  { type: 'Email',     val: 'remie.bossmagph@gmail.com', href: 'mailto:remie.bossmagph@gmail.com' },
+                  { type: 'Email',     val: 'bosstvofficial.ph@gmail.com', href: 'mailto:bosstvofficial.ph@gmail.com' },
+                ].map(({ type, val, href }) => (
+                  <a key={val} href={href} className="about-bosstv__contact" target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+                    <span className="about-bosstv__contact-type">{type}</span>
+                    <span className="about-bosstv__contact-val">{val}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── EDITORIAL BOARD ─────────────────────────────────────────────── */}
       <section className="about-editorial">
         <div className="about-editorial__inner">
