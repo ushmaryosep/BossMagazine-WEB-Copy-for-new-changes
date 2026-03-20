@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
           <div className="footer__col">
             <span className="footer__col-title">Connect</span>
-            <a href="https://www.facebook.com/BossMagazinePH" target="_blank" rel="noreferrer">FB: Boss Magazine PH</a>
+            <a href="https://www.facebook.com/profile.php?id=100083708735728" target="_blank" rel="noreferrer">FB: Boss Magazine PH</a>
             <a href="https://www.tiktok.com/@bossmediaphilippines" target="_blank" rel="noreferrer">TikTok: Boss Media Philippines</a>
             <a href="mailto:remie.bossmagph@gmail.com">Email Us</a>
           </div>

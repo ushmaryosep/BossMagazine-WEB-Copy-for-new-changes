@@ -7,10 +7,15 @@ const EDITORIAL_BOARD = [
   { role: 'Executive Editor',                       name: 'Johnny Chotrani' },
   { role: 'Managing Editor',                        name: 'Sofyan Alawi' },
   { role: 'Feature Editor',                         name: 'Lugille L. Roberto' },
-  { role: 'Senior Graphics Designer & Webmaster',   name: 'JM Clavero' },
   { role: 'Senior Marketing Specialist',            name: 'Francisca N. Dimayuga' },
   { role: 'Digital Team',                           name: 'Boss TechSolutions PH' },
   { role: 'PR Team',                                name: 'Blue Oak Strategies' },
+]
+
+const WEBMASTERS = [
+  { role: 'Graphic Designer & Webmaster',           name: 'Joshmar Clavero' },
+  { role: 'Webmaster & Database Designer',          name: 'Rei Khalil Galido' },
+  { role: 'Technical & Research',                   name: 'Roman Rico Albania' },
 ]
 
 export default function About() {
@@ -54,6 +59,13 @@ export default function About() {
             <p className="section-label">Boss TV</p>
           </div>
           <div className="about-bosstv__grid">
+            <div className="about-bosstv__logo-wrap">
+              <img
+                src="https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/public/BOSSTV%20LOGO.jpg?raw=true"
+                alt="Boss TV"
+                className="about-bosstv__logo"
+              />
+            </div>
             <div className="about-bosstv__block">
               <span className="about-bosstv__block-label">Address</span>
               <p className="about-bosstv__block-text">
@@ -99,6 +111,19 @@ export default function About() {
             ))}
           </div>
 
+          {/* Webmasters group */}
+          <div className="about-editorial__group-header">
+            <span className="about-editorial__group-label">Webmasters</span>
+          </div>
+          <div className="about-editorial__grid about-editorial__grid--webmasters">
+            {WEBMASTERS.map(({ role, name }) => (
+              <div key={name} className="about-editorial__item">
+                <span className="about-editorial__role">{role}</span>
+                <span className="about-editorial__name">{name}</span>
+              </div>
+            ))}
+          </div>
+
           <div className="about-editorial__office">
             <div className="about-editorial__office-block">
               <span className="about-editorial__office-label">Office Address</span>
@@ -116,7 +141,7 @@ export default function About() {
                   <span className="about-editorial__contact-type">Email</span>
                   <span className="about-editorial__contact-val">remie.bossmagph@gmail.com</span>
                 </a>
-                <a href="https://facebook.com/BossMagazinePH" target="_blank" rel="noreferrer" className="about-editorial__contact">
+                <a href="https://www.facebook.com/profile.php?id=100083708735728" target="_blank" rel="noreferrer" className="about-editorial__contact">
                   <span className="about-editorial__contact-type">Facebook</span>
                   <span className="about-editorial__contact-val">Boss Magazine PH</span>
                 </a>
