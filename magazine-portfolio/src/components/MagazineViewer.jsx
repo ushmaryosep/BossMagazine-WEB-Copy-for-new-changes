@@ -5,16 +5,25 @@ import './MagazineViewer.css'
 export default function MagazineViewer({ magazine, onClose }) {
   // spreadIndex: 0 = cover alone, 1 = pages 2-3, 2 = pages 4-5, etc.
   const [spread, setSpread]     = useState(0)
+  const [mobilePage, setMobilePage] = useState(0) // separate page index for mobile
   const [zoom, setZoom]         = useState(false)
   const [direction, setDir]     = useState('next')
   const [animating, setAnim]    = useState(false)
   const [thumbsOpen, setThumbs] = useState(false)
   const [loaded, setLoaded]     = useState({})
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 600)
   const touchStartX = useRef(null)
   const thumbRef    = useRef(null)
 
   const pages = magazine.pages
   const total = pages.length
+
+  // Track mobile/desktop on resize
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 600)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   // Spread helpers
   // spread 0 → [0] (cover alone)
@@ -30,10 +39,12 @@ export default function MagazineViewer({ magazine, onClose }) {
   const totalSpreads = Math.ceil((total - 1) / 2) + 1
 
   const currentPages = getSpreadPages(spread)
-  // For counter display: show page range
-  const pageLabel = currentPages.length === 2
-    ? `${currentPages[0] + 1} – ${currentPages[1] + 1}`
-    : `${currentPages[0] + 1}`
+  // For counter display
+  const pageLabel = isMobile
+    ? `${mobilePage + 1}`
+    : currentPages.length === 2
+      ? `${currentPages[0] + 1} – ${currentPages[1] + 1}`
+      : `${currentPages[0] + 1}`
 
   // Preload surrounding pages
   useEffect(() => {
@@ -69,15 +80,41 @@ export default function MagazineViewer({ magazine, onClose }) {
     }, 260)
   }, [animating, totalSpreads])
 
-  const goPrev = useCallback(() => goTo(spread - 1, 'prev'), [spread, goTo])
-  const goNext = useCallback(() => goTo(spread + 1, 'next'), [spread, goTo])
+  const goPrev = useCallback(() => {
+    if (isMobile) {
+      if (animating || mobilePage === 0) return
+      setDir('prev')
+      setAnim(true)
+      setTimeout(() => { setMobilePage(p => p - 1); setAnim(false) }, 260)
+    } else {
+      goTo(spread - 1, 'prev')
+    }
+  }, [isMobile, animating, mobilePage, goTo, spread])
+
+  const goNext = useCallback(() => {
+    if (isMobile) {
+      if (animating || mobilePage === total - 1) return
+      setDir('next')
+      setAnim(true)
+      setTimeout(() => { setMobilePage(p => p + 1); setAnim(false) }, 260)
+    } else {
+      goTo(spread + 1, 'next')
+    }
+  }, [isMobile, animating, mobilePage, total, goTo, spread])
 
   // Jump to spread that contains a given page index
   const goToPage = (pageIdx) => {
-    if (pageIdx === 0) goTo(0, pageIdx > currentPages[0] ? 'next' : 'prev')
-    else {
-      const s = Math.floor((pageIdx - 1) / 2) + 1
-      goTo(s, s > spread ? 'next' : 'prev')
+    if (isMobile) {
+      const dir = pageIdx > mobilePage ? 'next' : 'prev'
+      setDir(dir)
+      setAnim(true)
+      setTimeout(() => { setMobilePage(pageIdx); setAnim(false) }, 260)
+    } else {
+      if (pageIdx === 0) goTo(0, pageIdx > currentPages[0] ? 'next' : 'prev')
+      else {
+        const s = Math.floor((pageIdx - 1) / 2) + 1
+        goTo(s, s > spread ? 'next' : 'prev')
+      }
     }
     setThumbs(false)
   }
@@ -112,7 +149,9 @@ export default function MagazineViewer({ magazine, onClose }) {
   }, [spread, thumbsOpen])
 
   const isSinglePage = currentPages.length === 1
-  const progress = ((spread + 1) / totalSpreads) * 100
+  const progress = isMobile
+    ? ((mobilePage + 1) / total) * 100
+    : ((spread + 1) / totalSpreads) * 100
 
   const content = (
     <div className="mv" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
@@ -164,18 +203,18 @@ export default function MagazineViewer({ magazine, onClose }) {
         {/* Book spread */}
         <div className={`mv__spread ${isSinglePage ? 'mv__spread--single' : ''} ${animating ? `mv__spread--${direction}` : ''} ${zoom ? 'mv__spread--zoomed' : ''}`}>
 
-          {/* Left page (or single cover) */}
+          {/* Left page (or single cover on desktop, single page on mobile) */}
           <div className="mv__page mv__page--left">
             <img
-              src={pages[currentPages[0]]}
-              alt={`Page ${currentPages[0] + 1}`}
+              src={isMobile ? pages[mobilePage] : pages[currentPages[0]]}
+              alt={`Page ${(isMobile ? mobilePage : currentPages[0]) + 1}`}
               className="mv__page-img"
               draggable={false}
             />
-            {!loaded[currentPages[0]] && (
+            {!loaded[isMobile ? mobilePage : currentPages[0]] && (
               <div className="mv__page-loading"><div className="mv__spinner" /></div>
             )}
-            <span className="mv__page-num">{currentPages[0] + 1}</span>
+            <span className="mv__page-num">{(isMobile ? mobilePage : currentPages[0]) + 1}</span>
           </div>
 
           {/* Right page — only on spreads */}
@@ -214,11 +253,11 @@ export default function MagazineViewer({ magazine, onClose }) {
 
       {/* ── BOTTOM NAV ──────────────────────────────────────── */}
       <div className="mv__bottom">
-        <button className="mv__bottom-btn" onClick={goPrev} disabled={spread === 0}>← Prev</button>
+        <button className="mv__bottom-btn" onClick={goPrev} disabled={isMobile ? mobilePage === 0 : spread === 0}>← Prev</button>
         <button className="mv__bottom-btn mv__bottom-btn--mid" onClick={() => setThumbs(t => !t)}>
           {thumbsOpen ? 'Hide Pages' : 'All Pages'}
         </button>
-        <button className="mv__bottom-btn" onClick={goNext} disabled={spread === totalSpreads - 1}>Next →</button>
+        <button className="mv__bottom-btn" onClick={goNext} disabled={isMobile ? mobilePage === total - 1 : spread === totalSpreads - 1}>Next →</button>
       </div>
 
       {/* ── THUMBNAIL STRIP ─────────────────────────────────── */}
@@ -226,7 +265,7 @@ export default function MagazineViewer({ magazine, onClose }) {
         <div className="mv__thumbs" ref={thumbRef}>
           <div className="mv__thumbs-inner">
             {pages.map((src, i) => {
-              const isActive = currentPages.includes(i)
+              const isActive = isMobile ? i === mobilePage : currentPages.includes(i)
               return (
                 <button
                   key={i}
