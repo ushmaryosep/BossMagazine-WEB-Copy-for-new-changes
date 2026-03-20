@@ -5,7 +5,6 @@ import magazines from '../data/magazines'
 import ArticleCard from '../components/ArticleCard'
 import MainCarousel from '../components/MainCarousel'
 import SubCarousel from '../components/SubCarousel'
-import Gallery from '../components/Gallery'
 import MagazineViewer from '../components/MagazineViewer'
 import './Home.css'
 
@@ -346,9 +345,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* GALLERY */}
-      <Gallery />
 
       {/* STATS COUNTER */}
       <StatsCounter />

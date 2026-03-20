@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Partners from './components/Partners'
+import Gallery from './components/Gallery'
 import Home from './pages/Home'
 import Articles from './pages/Articles'
 import ArticleDetail from './pages/ArticleDetail'
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/magazines" element={<Magazines />} />
         <Route path="/about" element={<About />} />
       </Routes>
+      <Gallery />
       <Partners />
       <Footer />
     </BrowserRouter>

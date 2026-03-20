@@ -88,6 +88,19 @@ const ALL_IMAGES = [
   'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/4.png',
   'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/5.png',
   'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/6.png',
+  // Lugaw 101 Feature
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-47-331.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-47-545.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-47-750.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-47-846.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-47-936.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-48-055.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-48-216.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-48-346.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-48-436.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-48-535.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-48-627.jpg?raw=true',
+  'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/LUGAW%20101%20FEATURE/viber_image_2026-03-20_14-54-48-728.jpg?raw=true',
 ]
 
 const SPAN_PATTERN = ['wide', 'tall', 'normal', 'normal', 'wide', 'tall', 'normal', 'normal']
