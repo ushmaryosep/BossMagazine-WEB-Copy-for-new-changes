@@ -188,7 +188,7 @@ export default function Home() {
     supabase
       .from('articles')
       .select('id, title, excerpt, cover_image, category, author, published_at')
-      .order('published_at', { descending: false })
+      .order('published_at', { ascending: true })
       .limit(4)
       .then(({ data }) => {
         setArticles(data || [])
