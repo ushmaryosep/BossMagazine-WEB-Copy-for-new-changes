@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { supabase, supabaseOwn } from '../lib/supabase'
 import './ArticleDetail.css'
 
 export default function ArticleDetail() {
@@ -9,20 +9,39 @@ export default function ArticleDetail() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase
-      .from('articles')
-      .select('*')
-      .eq('id', id)
-      .single()
-      .then(({ data }) => {
-        setArticle(data)
+    const fetchArticle = async () => {
+      // Try own Supabase first
+      const { data: ownData } = await supabaseOwn
+        .from('articles')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle()
+
+      if (ownData) {
+        setArticle(ownData)
         setLoading(false)
-      })
+        return
+      }
+
+      // Fall back to original Supabase
+      const { data: origData } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle()
+
+      setArticle(origData || null)
+      setLoading(false)
+    }
+
+    fetchArticle()
   }, [id])
 
   if (loading) return (
     <div className="article-detail__loading">
-      <span className="loading__dot"/><span className="loading__dot"/><span className="loading__dot"/>
+      <span className="loading__dot"/>
+      <span className="loading__dot"/>
+      <span className="loading__dot"/>
     </div>
   )
 
@@ -32,7 +51,6 @@ export default function ArticleDetail() {
       <Link to="/articles" className="btn-primary">Back to Articles</Link>
     </div>
   )
-
 
   return (
     <main className="article-detail">
@@ -47,7 +65,6 @@ export default function ArticleDetail() {
             {article.category && (
               <span className="article-detail__tag">{article.category}</span>
             )}
-          {/* Change formattedDate to article.published_at */}
             {article.published_at && (
               <span className="article-detail__date">{article.published_at}</span>
             )}

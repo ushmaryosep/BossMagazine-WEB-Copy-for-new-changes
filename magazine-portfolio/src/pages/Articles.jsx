@@ -1,28 +1,31 @@
 import { useEffect, useState } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, supabaseOwn } from '../lib/supabase'
 import ArticleCard from '../components/ArticleCard'
 import './Articles.css'
 
 const PAGE_SIZE = 9
 
 export default function Articles() {
-  const [articles, setArticles] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
+  const [articles, setArticles]   = useState([])
+  const [loading, setLoading]     = useState(true)
+  const [search, setSearch]       = useState('')
   const [activeTag, setActiveTag] = useState('')
-  const [page, setPage] = useState(0)
-  const [hasMore, setHasMore] = useState(true)
-  const [allTags, setAllTags] = useState([])
+  const [page, setPage]           = useState(0)
+  const [hasMore, setHasMore]     = useState(true)
+  const [allTags, setAllTags]     = useState([])
 
+  // Load all tags from both databases
   useEffect(() => {
-    supabase
-      .from('articles')
-      .select('category')
-      .then(({ data }) => {
-        if (!data) return
-        const cats = [...new Set(data.map(a => a.category).filter(Boolean))]
-        setAllTags(cats)
-      })
+    const loadTags = async () => {
+      const [{ data: d1 }, { data: d2 }] = await Promise.all([
+        supabaseOwn.from('articles').select('category'),
+        supabase.from('articles').select('category'),
+      ])
+      const all = [...(d1 || []), ...(d2 || [])]
+      const cats = [...new Set(all.map(a => a.category).filter(Boolean))]
+      setAllTags(cats)
+    }
+    loadTags()
   }, [])
 
   useEffect(() => {
@@ -34,19 +37,48 @@ export default function Articles() {
 
   const fetchArticles = async (pageNum, reset = false) => {
     setLoading(true)
-    let query = supabase
+
+    // Build query for own Supabase
+    let ownQuery = supabaseOwn
+      .from('articles')
+      .select('id, title, excerpt, cover_image, category, author, published_at, created_at')
+      .order('published_at', { ascending: false })
+
+    if (search)    ownQuery = ownQuery.ilike('title', `%${search}%`)
+    if (activeTag) ownQuery = ownQuery.eq('category', activeTag)
+
+    // Build query for original Supabase
+    let origQuery = supabase
       .from('articles')
       .select('id, title, excerpt, cover_image, category, author, published_at, created_at')
       .order('created_at', { ascending: false })
-      .range(pageNum * PAGE_SIZE, (pageNum + 1) * PAGE_SIZE - 1)
 
-    if (search) query = query.ilike('title', `%${search}%`)
-    if (activeTag) query = query.eq('category', activeTag)
+    if (search)    origQuery = origQuery.ilike('title', `%${search}%`)
+    if (activeTag) origQuery = origQuery.eq('category', activeTag)
 
-    const { data } = await query
-    const results = data || []
-    setArticles(prev => reset ? results : [...prev, ...results])
-    setHasMore(results.length === PAGE_SIZE)
+    // Fetch both in parallel — get more than PAGE_SIZE to allow merging
+    const [{ data: ownData }, { data: origData }] = await Promise.all([
+      ownQuery,
+      origQuery,
+    ])
+
+    const own  = (ownData  || []).map(a => ({ ...a, _source: 'own'  }))
+    const orig = (origData || []).map(a => ({ ...a, _source: 'orig' }))
+
+    // Merge: yours first, then original — deduplicate by title just in case
+    const seen = new Set()
+    const merged = [...own, ...orig].filter(a => {
+      if (seen.has(a.title)) return false
+      seen.add(a.title)
+      return true
+    })
+
+    // Paginate the merged result
+    const start   = pageNum * PAGE_SIZE
+    const pageSlice = merged.slice(start, start + PAGE_SIZE)
+
+    setArticles(prev => reset ? pageSlice : [...prev, ...pageSlice])
+    setHasMore(pageSlice.length === PAGE_SIZE)
     setLoading(false)
   }
 
@@ -91,12 +123,16 @@ export default function Articles() {
       </div>
 
       {loading && articles.length === 0 ? (
-        <div className="loading"><span className="loading__dot"/><span className="loading__dot"/><span className="loading__dot"/></div>
+        <div className="loading">
+          <span className="loading__dot"/>
+          <span className="loading__dot"/>
+          <span className="loading__dot"/>
+        </div>
       ) : articles.length === 0 ? (
         <p className="empty-state">No articles found.</p>
       ) : (
         <div className="articles-page__grid">
-          {articles.map(a => <ArticleCard key={a.id} article={a} />)}
+          {articles.map(a => <ArticleCard key={`${a._source}-${a.id}`} article={a} />)}
         </div>
       )}
 

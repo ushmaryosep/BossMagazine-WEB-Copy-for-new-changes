@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { supabase, supabaseOwn } from '../lib/supabase'
 import magazines from '../data/magazines'
 import ArticleCard from '../components/ArticleCard'
 import MainCarousel from '../components/MainCarousel'
@@ -189,27 +189,38 @@ export default function Home() {
   const [viewingMag, setViewingMag] = useState(null)
 
   useEffect(() => {
-    supabase
-      .from('articles')
-      .select('id, title, excerpt, cover_image, category, author, published_at')
-      .gte('published_at', '2026-01-01')
-      .lte('published_at', '2026-01-31')
-      .order('published_at', { ascending: false })
-      .limit(4)
-      .then(({ data, error }) => {
-        if (data && data.length > 0) {
-          setArticles(data)
-        } else {
-          // Fallback: just get the 4 most recent articles if no Jan 2026 found
-          supabase
-            .from('articles')
-            .select('id, title, excerpt, cover_image, category, author, published_at')
-            .order('published_at', { ascending: false })
-            .limit(4)
-            .then(({ data: fallback }) => setArticles(fallback || []))
-        }
+    const fetchArticles = async () => {
+      // Fetch from YOUR Supabase first
+      const { data: ownData } = await supabaseOwn
+        .from('articles')
+        .select('id, title, excerpt, cover_image, category, author, published_at')
+        .order('published_at', { ascending: false })
+        .limit(4)
+
+      const own = (ownData || []).map(a => ({ ...a, _source: 'own' }))
+
+      // If we already have 4 from your DB, use those only
+      if (own.length >= 4) {
+        setArticles(own.slice(0, 4))
         setLoading(false)
-      })
+        return
+      }
+
+      // Fill remaining slots from original Supabase
+      const remaining = 4 - own.length
+      const { data: origData } = await supabase
+        .from('articles')
+        .select('id, title, excerpt, cover_image, category, author, published_at')
+        .order('published_at', { ascending: false })
+        .limit(remaining)
+
+      const orig = (origData || []).map(a => ({ ...a, _source: 'orig' }))
+
+      setArticles([...own, ...orig])
+      setLoading(false)
+    }
+
+    fetchArticles()
   }, [])
 
   return (
