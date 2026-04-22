@@ -3,26 +3,33 @@ import { Link } from 'react-router-dom'
 import { supabase, supabaseOwn } from '../lib/supabase'
 import magazines from '../data/magazines'
 import ArticleCard from '../components/ArticleCard'
-import MainCarousel from '../components/MainCarousel'
 import SubCarousel from '../components/SubCarousel'
 import MagazineViewer from '../components/MagazineViewer'
 import './Home.css'
 
-const MAIN_CAROUSEL = {
-  category: 'International',
-  title: 'Japan-ASEAN Collaboration',
-  description: 'Japan investors took time to visit Bases Conversion and Development Corporation (BCDA) in Clark City, Pampanga to meet with the executives of Investment and Promotions VP. Alongside with the visit, they also dropped by the Malacañang Museum to visit the palace. / Boss Magazine PH',
-  images: [
-    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/1.png',
-    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/2.png',
-    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/3.png',
-    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/4.png',
-    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/5.png',
-    'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/6.png',
-  ],
+const FINPRO_HERO = {
+  image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/FINPRO%20HEADLINE%20APRIL%202026/HEAD%20IMAGE%20FOR%20DASHBOARD.png',
+  category: 'Event',
+  title: 'FINPRO Forum: The New Era of Collections',
+  description: 'Industry leaders gather to discuss ethical, technology-driven debt recovery in the Philippines. CzechTrade Manila hosts the forum on 29 April 2026, 10:00 AM – 2:00 PM at Dempsey Hall, Ascott BGC Hotel, Taguig City.',
 }
 
+const FINPRO_BANNER = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/FINPRO%20HEADLINE%20APRIL%202026/AD%20BANNER.png'
+
 const SUB_CAROUSELS = [
+  {
+    title: 'Japan-ASEAN Collaboration',
+    description: 'Japan investors visited BCDA in Clark City and the Malacañang Museum. / Boss Magazine PH',
+    objectFit: 'cover',
+    images: [
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/1.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/2.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/3.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/4.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/5.png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/6.png',
+    ],
+  },
   {
     title: 'Boss Magazine PH Goes Global',
     description: 'Official international media partner — India, Africa, Malaysia, and Kenya.',
@@ -143,6 +150,36 @@ function AdBanner() {
   )
 }
 
+function FinproBanner() {
+  return (
+    <div className="home-finpro-banner">
+      <img
+        src={FINPRO_BANNER}
+        alt="FINPRO Forum — The New Era of Collections"
+        className="home-finpro-banner__img"
+      />
+    </div>
+  )
+}
+
+function FinproHero() {
+  return (
+    <div className="home-finpro-hero">
+      <img
+        src={FINPRO_HERO.image}
+        alt={FINPRO_HERO.title}
+        className="home-finpro-hero__img"
+      />
+      <div className="home-finpro-hero__overlay" />
+      <div className="home-finpro-hero__content">
+        <span className="home-finpro-hero__tag">{FINPRO_HERO.category}</span>
+        <h2 className="home-finpro-hero__title">{FINPRO_HERO.title}</h2>
+        <p className="home-finpro-hero__desc">{FINPRO_HERO.description}</p>
+      </div>
+    </div>
+  )
+}
+
 function SideAd() {
   return (
     <div className="side-ad">
@@ -237,12 +274,9 @@ export default function Home() {
 
           <AdBanner />
 
-          <MainCarousel
-            images={MAIN_CAROUSEL.images}
-            category={MAIN_CAROUSEL.category}
-            title={MAIN_CAROUSEL.title}
-            description={MAIN_CAROUSEL.description}
-          />
+          <FinproBanner />
+
+          <FinproHero />
 
           {/* SUB CAROUSELS — horizontal scroll on mobile */}
           <div className="home-sub-row">

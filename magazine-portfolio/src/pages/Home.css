@@ -82,10 +82,113 @@
   color: rgba(201,150,12,0.18);
 }
 
+
+/* ── FINPRO Event Banner (1600x400) ─────────────────────── */
+.home-finpro-banner {
+  width: 100%;
+  background: var(--black2);
+  overflow: hidden;
+  line-height: 0;
+}
+
+.home-finpro-banner__img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ── FINPRO Hero (single full-width image with overlay) ─── */
+.home-finpro-hero {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  background: var(--black3);
+}
+
+.home-finpro-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.home-finpro-hero:hover .home-finpro-hero__img { transform: scale(1.02); }
+
+.home-finpro-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.4) 55%, rgba(10,10,10,0.05) 100%),
+    linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.home-finpro-hero__content {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  right: 100px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.home-finpro-hero__tag {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.home-finpro-hero__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+
+.home-finpro-hero__desc {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(245,240,232,0.6);
+  max-width: 500px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Responsive FINPRO ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .home-finpro-hero { height: 360px; }
+  .home-finpro-hero__content { left: 24px; right: 24px; top: auto; bottom: 48px; transform: none; }
+  .home-finpro-banner__img { max-height: 150px; }
+}
+
+@media (max-width: 600px) {
+  .home-finpro-hero { height: 280px; }
+  .home-finpro-hero__content { left: 16px; right: 16px; bottom: 36px; }
+  .home-finpro-hero__desc { -webkit-line-clamp: 2; line-clamp: 2; }
+  .home-finpro-banner__img { max-height: 100px; }
+}
+
 /* ── Sub Carousels Row ─────────────────────────────────────────────────── */
 .home-sub-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   padding: 0 8px;
 }
@@ -551,8 +654,8 @@
   .home-sub-row::-webkit-scrollbar { display: none; }
 
   .home-sub-item {
-    flex: 0 0 85vw;
-    max-width: 85vw;
+    flex: 0 0 80vw;
+    max-width: 80vw;
     border: 1px solid rgba(201,150,12,0.08);
   }
 
