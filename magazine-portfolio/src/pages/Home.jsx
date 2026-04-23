@@ -150,6 +150,14 @@ function AdBanner() {
   )
 }
 
+const FINPRO_SLIDES = [
+  'FINPRO Forum: The New Era of Collections — Industry leaders gather to discuss ethical, technology-driven debt recovery in the Philippines.',
+  'CzechTrade Manila, under the auspices of the Embassy of the Czech Republic in Manila, brings together leaders from banking, fintech, and legal sectors.',
+  '29 April 2026 · 10:00 AM – 2:00 PM · Dempsey Hall, Ascott BGC Hotel, Taguig City.',
+  'Topics include emerging trends in debt collection, technological innovations, regulatory compliance, and consumer-focused recovery strategies.',
+  'Expected to attract banks, fintech companies, legal firms, and financial services providers — shaping the Philippine financial ecosystem.',
+]
+
 function FinproBanner() {
   return (
     <div className="home-finpro-banner">
@@ -163,20 +171,64 @@ function FinproBanner() {
 }
 
 function FinproHero() {
+  const [lightbox, setLightbox] = useState(false)
+  const [slide, setSlide] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setSlide(s => (s + 1) % FINPRO_SLIDES.length), 4500)
+    return () => clearInterval(t)
+  }, [])
+
   return (
-    <div className="home-finpro-hero">
-      <img
-        src={FINPRO_HERO.image}
-        alt={FINPRO_HERO.title}
-        className="home-finpro-hero__img"
-      />
-      <div className="home-finpro-hero__overlay" />
-      <div className="home-finpro-hero__content">
-        <span className="home-finpro-hero__tag">{FINPRO_HERO.category}</span>
-        <h2 className="home-finpro-hero__title">{FINPRO_HERO.title}</h2>
-        <p className="home-finpro-hero__desc">{FINPRO_HERO.description}</p>
+    <>
+      <div className="home-finpro-hero" onClick={() => setLightbox(true)}>
+        <img
+          src={FINPRO_HERO.image}
+          alt={FINPRO_HERO.title}
+          className="home-finpro-hero__img"
+        />
+        <div className="home-finpro-hero__overlay" />
+        <div className="home-finpro-hero__content">
+          <span className="home-finpro-hero__tag">{FINPRO_HERO.category}</span>
+          <h2 className="home-finpro-hero__title">{FINPRO_HERO.title}</h2>
+          <div className="home-finpro-hero__slide-wrap">
+            {FINPRO_SLIDES.map((txt, i) => (
+              <p key={i} className={`home-finpro-hero__desc ${i === slide ? 'active' : ''}`}>{txt}</p>
+            ))}
+          </div>
+          <div className="home-finpro-hero__dots">
+            {FINPRO_SLIDES.map((_, i) => (
+              <button
+                key={i}
+                className={`home-finpro-hero__dot ${i === slide ? 'active' : ''}`}
+                onClick={e => { e.stopPropagation(); setSlide(i) }}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
+          <span className="home-finpro-hero__zoom-hint">🔍 Click to view full image</span>
+        </div>
       </div>
-    </div>
+
+      {lightbox && (
+        <div
+          style={{ position:'fixed',inset:0,zIndex:9999,background:'rgba(0,0,0,0.96)',display:'flex',alignItems:'center',justifyContent:'center',cursor:'zoom-out' }}
+          onClick={() => setLightbox(false)}
+        >
+          <button
+            onClick={() => setLightbox(false)}
+            style={{ position:'fixed',top:16,right:16,width:40,height:40,background:'rgba(245,240,232,0.1)',border:'1px solid rgba(245,240,232,0.2)',color:'#F5F0E8',fontSize:16,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center' }}
+            aria-label="Close"
+          >✕</button>
+          <img
+            src={FINPRO_HERO.image}
+            alt={FINPRO_HERO.title}
+            style={{ maxWidth:'95vw',maxHeight:'92vh',objectFit:'contain',display:'block',boxShadow:'0 0 80px rgba(0,0,0,0.8)' }}
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
   )
 }
 
