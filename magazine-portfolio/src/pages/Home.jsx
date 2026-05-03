@@ -7,14 +7,20 @@ import SubCarousel from '../components/SubCarousel'
 import MagazineViewer from '../components/MagazineViewer'
 import './Home.css'
 
-const FINPRO_HERO = {
-  image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/FINPRO%20HEADLINE%20APRIL%202026/HEAD%20IMAGE%20FOR%20DASHBOARD.png',
-  category: 'Event',
-  title: 'FINPRO Forum: The New Era of Collections',
-  description: 'Industry leaders gather to discuss ethical, technology-driven debt recovery in the Philippines. CzechTrade Manila hosts the forum on 29 April 2026, 10:00 AM – 2:00 PM at Dempsey Hall, Ascott BGC Hotel, Taguig City.',
-}
-
-const FINPRO_BANNER = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/FINPRO%20HEADLINE%20APRIL%202026/AD%20BANNER.png'
+const DAGUPAN_HERO = [
+  {
+    image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(1).png',
+    description: 'In Dagupan City, a local fisherman navigates the waters in a small wooden boat, bringing his daily catch directly to nearby restaurants. With crabs selling at around ₱800 per kilo, the trade offers a modest return—but only after hours of labor under the sun and uncertain conditions at sea.',
+  },
+  {
+    image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(2).png',
+    description: 'Seated low on his boat, he carefully sorts and ties each crab by hand, a routine shaped by years of experience.',
+  },
+  {
+    image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(3).png',
+    description: 'For many like him, fishing is not just a livelihood—it is a daily test of endurance, where each catch carries the quiet hope that it will be enough to sustain a family for another day.',
+  },
+]
 
 const SUB_CAROUSELS = [
   {
@@ -46,6 +52,7 @@ const SUB_CAROUSELS = [
     description: 'Boss Magazine PH as official media partner.',
     objectFit: 'contain',
     images: [
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/FINPRO%20HEADLINE%20APRIL%202026/HEAD%20IMAGE%20FOR%20DASHBOARD.png',
       'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20CONSTRUCTION%20EXPO%202026.jpg',
       'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20ELECTRICITY%20EXPO%202026.jpg',
       'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/PH%20CONSTRUCTION%20EXPO%202026.jpg',
@@ -150,63 +157,63 @@ function AdBanner() {
   )
 }
 
-const FINPRO_SLIDES = [
-  'FINPRO Forum: The New Era of Collections — Industry leaders gather to discuss ethical, technology-driven debt recovery in the Philippines.',
-  'CzechTrade Manila, under the auspices of the Embassy of the Czech Republic in Manila, brings together leaders from banking, fintech, and legal sectors.',
-  '29 April 2026 · 10:00 AM – 2:00 PM · Dempsey Hall, Ascott BGC Hotel, Taguig City.',
-  'Topics include emerging trends in debt collection, technological innovations, regulatory compliance, and consumer-focused recovery strategies.',
-  'Expected to attract banks, fintech companies, legal firms, and financial services providers — shaping the Philippine financial ecosystem.',
-]
-
-function FinproBanner() {
-  return (
-    <div className="home-finpro-banner">
-      <img
-        src={FINPRO_BANNER}
-        alt="FINPRO Forum — The New Era of Collections"
-        className="home-finpro-banner__img"
-      />
-    </div>
-  )
-}
-
-function FinproHero() {
-  const [lightbox, setLightbox] = useState(false)
+function DagupanHero() {
   const [slide, setSlide] = useState(0)
+  const [lightbox, setLightbox] = useState(false)
+  const total = DAGUPAN_HERO.length
 
   useEffect(() => {
-    const t = setInterval(() => setSlide(s => (s + 1) % FINPRO_SLIDES.length), 4500)
+    const t = setInterval(() => setSlide(s => (s + 1) % total), 5000)
     return () => clearInterval(t)
-  }, [])
+  }, [total])
+
+  const current = DAGUPAN_HERO[slide]
 
   return (
     <>
-      <div className="home-finpro-hero" onClick={() => setLightbox(true)}>
-        <img
-          src={FINPRO_HERO.image}
-          alt={FINPRO_HERO.title}
-          className="home-finpro-hero__img"
-        />
-        <div className="home-finpro-hero__overlay" />
-        <div className="home-finpro-hero__content">
-          <span className="home-finpro-hero__tag">{FINPRO_HERO.category}</span>
-          <h2 className="home-finpro-hero__title">{FINPRO_HERO.title}</h2>
+      <div className="home-finpro-hero" style={{ cursor: 'default' }}>
+        {/* Image slides */}
+        {DAGUPAN_HERO.map((item, i) => (
+          <img
+            key={i}
+            src={item.image}
+            alt={`Dagupan ${i + 1}`}
+            className="home-finpro-hero__img"
+            style={{
+              position: i === 0 ? 'relative' : 'absolute',
+              top: 0, left: 0,
+              opacity: i === slide ? 1 : 0,
+              transition: 'opacity 0.9s ease',
+              zIndex: i === slide ? 1 : 0,
+            }}
+            onClick={() => setLightbox(true)}
+          />
+        ))}
+        <div className="home-finpro-hero__overlay" style={{ zIndex: 2 }} />
+
+        <div className="home-finpro-hero__content" style={{ zIndex: 3 }}>
+          <span className="home-finpro-hero__tag">Feature</span>
+          <h2 className="home-finpro-hero__title">Dagupan City</h2>
           <div className="home-finpro-hero__slide-wrap">
-            {FINPRO_SLIDES.map((txt, i) => (
-              <p key={i} className={`home-finpro-hero__desc ${i === slide ? 'active' : ''}`}>{txt}</p>
+            {DAGUPAN_HERO.map((item, i) => (
+              <p key={i} className={`home-finpro-hero__desc ${i === slide ? 'active' : ''}`}>
+                {item.description}
+              </p>
             ))}
           </div>
           <div className="home-finpro-hero__dots">
-            {FINPRO_SLIDES.map((_, i) => (
+            {DAGUPAN_HERO.map((_, i) => (
               <button
                 key={i}
                 className={`home-finpro-hero__dot ${i === slide ? 'active' : ''}`}
-                onClick={e => { e.stopPropagation(); setSlide(i) }}
+                onClick={() => setSlide(i)}
                 aria-label={`Slide ${i + 1}`}
               />
             ))}
           </div>
-          <span className="home-finpro-hero__zoom-hint">🔍 Click to view full image</span>
+          <span className="home-finpro-hero__zoom-hint" style={{ cursor: 'zoom-in' }} onClick={() => setLightbox(true)}>
+            🔍 Click to view full image
+          </span>
         </div>
       </div>
 
@@ -221,8 +228,8 @@ function FinproHero() {
             aria-label="Close"
           >✕</button>
           <img
-            src={FINPRO_HERO.image}
-            alt={FINPRO_HERO.title}
+            src={current.image}
+            alt={`Dagupan ${slide + 1}`}
             style={{ maxWidth:'95vw',maxHeight:'92vh',objectFit:'contain',display:'block',boxShadow:'0 0 80px rgba(0,0,0,0.8)' }}
             onClick={e => e.stopPropagation()}
           />
@@ -326,9 +333,7 @@ export default function Home() {
 
           <AdBanner />
 
-          <FinproBanner />
-
-          <FinproHero />
+          <DagupanHero />
 
           {/* SUB CAROUSELS — horizontal scroll on mobile */}
           <div className="home-sub-row">

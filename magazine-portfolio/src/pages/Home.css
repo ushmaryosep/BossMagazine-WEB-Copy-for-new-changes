@@ -83,25 +83,7 @@
 }
 
 
-/* ── FINPRO Event Banner (1600x400 = 4:1 ratio) ─────────── */
-.home-finpro-banner {
-  width: 100%;
-  background: var(--black2);
-  overflow: hidden;
-  line-height: 0;
-}
-
-.home-finpro-banner__img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 1;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  background: var(--black2);
-}
-
-/* ── FINPRO Hero (3706x2166 ≈ 17:10 ratio) ──────────────── */
+/* ── FINPRO / Feature Hero ──────────────────────────────── */
 .home-finpro-hero {
   position: relative;
   width: 100%;
@@ -109,7 +91,6 @@
   max-height: 600px;
   overflow: hidden;
   background: var(--black3);
-  cursor: zoom-in;
 }
 
 .home-finpro-hero__img {
@@ -226,7 +207,6 @@
 @media (max-width: 900px) {
   .home-finpro-hero { max-height: 400px; }
   .home-finpro-hero__content { left: 24px; right: 24px; top: auto; bottom: 48px; transform: none; }
-  .home-finpro-banner__img { aspect-ratio: 4 / 1; }
 }
 
 @media (max-width: 600px) {
@@ -234,7 +214,6 @@
   .home-finpro-hero__content { left: 14px; right: 14px; bottom: 32px; }
   .home-finpro-hero__slide-wrap { min-height: 52px; }
   .home-finpro-hero__desc { font-size: 11px; }
-  .home-finpro-banner__img { aspect-ratio: 4 / 1; }
 }
 
 /* ── Sub Carousels Row ─────────────────────────────────────────────────── */
