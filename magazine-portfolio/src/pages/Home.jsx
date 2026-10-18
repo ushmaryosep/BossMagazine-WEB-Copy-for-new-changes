@@ -7,22 +7,29 @@ import SubCarousel from '../components/SubCarousel'
 import MagazineViewer from '../components/MagazineViewer'
 import './Home.css'
 
-const DAGUPAN_HERO = [
+// New spotlight posters (2 x A4)
+const SPOTLIGHT_POSTERS = [
   {
-    image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(1).png',
-    description: 'In Dagupan City, a local fisherman navigates the waters in a small wooden boat, bringing his daily catch directly to nearby restaurants. With crabs selling at around ₱800 per kilo, the trade offers a modest return—but only after hours of labor under the sun and uncertain conditions at sea.',
+    src: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/YTC%20NOVEMBER%202026/2ND%20NATIONAL%20YOUTH%20TECH%20CONGRESS%20ILOILO%202026%20OFFICIAL%20POSTER.png',
+    alt: '2nd National Youth Tech Congress Iloilo 2026 Official Poster',
   },
   {
-    image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(2).png',
-    description: 'Seated low on his boat, he carefully sorts and ties each crab by hand, a routine shaped by years of experience.',
-  },
-  {
-    image: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(3).png',
-    description: 'For many like him, fishing is not just a livelihood—it is a daily test of endurance, where each catch carries the quiet hope that it will be enough to sustain a family for another day.',
+    src: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/YTC%20NOVEMBER%202026/NEW%20YTC%20POSTER%20(1).png',
+    alt: 'Youth Tech Congress November 2026 Poster',
   },
 ]
 
 const SUB_CAROUSELS = [
+  {
+    title: 'Dagupan City Feature',
+    description: 'In Dagupan City, a local fisherman navigates the waters in a small wooden boat, bringing his daily catch directly to nearby restaurants. With crabs selling at around ₱800 per kilo, the trade offers a modest return—but only after hours of labor under the sun and uncertain conditions at sea.',
+    objectFit: 'cover',
+    images: [
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(1).png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(2).png',
+      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(3).png',
+    ],
+  },
   {
     title: 'Japan-ASEAN Collaboration',
     description: 'Japan investors visited BCDA in Clark City and the Malacañang Museum. / Boss Magazine PH',
@@ -157,80 +164,74 @@ function AdBanner() {
   )
 }
 
-function DagupanHero() {
-  const [slide, setSlide] = useState(0)
-  const [lightbox, setLightbox] = useState(false)
-  const total = DAGUPAN_HERO.length
-
-  useEffect(() => {
-    const t = setInterval(() => setSlide(s => (s + 1) % total), 5000)
-    return () => clearInterval(t)
-  }, [total])
-
-  const current = DAGUPAN_HERO[slide]
+// Two A4 posters side by side, click to zoom. Inline styles so no CSS changes needed.
+function SpotlightHero() {
+  const [zoomSrc, setZoomSrc] = useState(null)
 
   return (
     <>
-      <div className="home-finpro-hero" style={{ cursor: 'default' }}>
-        {/* Image slides */}
-        {DAGUPAN_HERO.map((item, i) => (
-          <img
-            key={i}
-            src={item.image}
-            alt={`Dagupan ${i + 1}`}
-            className="home-finpro-hero__img"
-            style={{
-              position: i === 0 ? 'relative' : 'absolute',
-              top: 0, left: 0,
-              opacity: i === slide ? 1 : 0,
-              transition: 'opacity 0.9s ease',
-              zIndex: i === slide ? 1 : 0,
-            }}
-            onClick={() => setLightbox(true)}
-          />
-        ))}
-        <div className="home-finpro-hero__overlay" style={{ zIndex: 2 }} />
+      <div style={{ background: '#0d0d0d', padding: '32px 16px 24px', textAlign: 'center' }}>
+        <span
+          style={{
+            display: 'block',
+            fontSize: 11,
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            color: '#C9A227',
+            marginBottom: 20,
+          }}
+        >
+          Spotlight · Youth Tech Congress · November 2026
+        </span>
 
-        <div className="home-finpro-hero__content" style={{ zIndex: 3 }}>
-          <span className="home-finpro-hero__tag">Feature</span>
-          <h2 className="home-finpro-hero__title">Dagupan City</h2>
-          <div className="home-finpro-hero__slide-wrap">
-            {DAGUPAN_HERO.map((item, i) => (
-              <p key={i} className={`home-finpro-hero__desc ${i === slide ? 'active' : ''}`}>
-                {item.description}
-              </p>
-            ))}
-          </div>
-          <div className="home-finpro-hero__dots">
-            {DAGUPAN_HERO.map((_, i) => (
-              <button
-                key={i}
-                className={`home-finpro-hero__dot ${i === slide ? 'active' : ''}`}
-                onClick={() => setSlide(i)}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
-          </div>
-          <span className="home-finpro-hero__zoom-hint" style={{ cursor: 'zoom-in' }} onClick={() => setLightbox(true)}>
-            🔍 Click to view full image
-          </span>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 24 }}>
+          {SPOTLIGHT_POSTERS.map((p, i) => (
+            <img
+              key={i}
+              src={p.src}
+              alt={p.alt}
+              onClick={() => setZoomSrc(p.src)}
+              style={{
+                width: 'calc(50% - 12px)',
+                maxWidth: 400,
+                aspectRatio: '210 / 297',
+                objectFit: 'contain',
+                cursor: 'zoom-in',
+                boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+                background: '#151515',
+              }}
+            />
+          ))}
         </div>
+
+        <span
+          style={{
+            display: 'block',
+            marginTop: 18,
+            fontSize: 10,
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'rgba(245,240,232,0.5)',
+          }}
+        >
+          Click a poster to view full image
+        </span>
       </div>
 
-      {lightbox && (
+      {zoomSrc && (
         <div
-          style={{ position:'fixed',inset:0,zIndex:9999,background:'rgba(0,0,0,0.96)',display:'flex',alignItems:'center',justifyContent:'center',cursor:'zoom-out' }}
-          onClick={() => setLightbox(false)}
+          style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.96)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out' }}
+          onClick={() => setZoomSrc(null)}
         >
           <button
-            onClick={() => setLightbox(false)}
-            style={{ position:'fixed',top:16,right:16,width:40,height:40,background:'rgba(245,240,232,0.1)',border:'1px solid rgba(245,240,232,0.2)',color:'#F5F0E8',fontSize:16,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center' }}
+            onClick={() => setZoomSrc(null)}
+            style={{ position: 'fixed', top: 16, right: 16, width: 40, height: 40, background: 'rgba(245,240,232,0.1)', border: '1px solid rgba(245,240,232,0.2)', color: '#F5F0E8', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             aria-label="Close"
           >✕</button>
           <img
-            src={current.image}
-            alt={`Dagupan ${slide + 1}`}
-            style={{ maxWidth:'95vw',maxHeight:'92vh',objectFit:'contain',display:'block',boxShadow:'0 0 80px rgba(0,0,0,0.8)' }}
+            src={zoomSrc}
+            alt="Poster full view"
+            style={{ maxWidth: '95vw', maxHeight: '92vh', objectFit: 'contain', display: 'block', boxShadow: '0 0 80px rgba(0,0,0,0.8)' }}
             onClick={e => e.stopPropagation()}
           />
         </div>
@@ -333,7 +334,7 @@ export default function Home() {
 
           <AdBanner />
 
-          <DagupanHero />
+          <SpotlightHero />
 
           {/* SUB CAROUSELS — horizontal scroll on mobile */}
           <div className="home-sub-row">
