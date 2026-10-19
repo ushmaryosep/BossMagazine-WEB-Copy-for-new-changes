@@ -406,6 +406,9 @@ export default function Home() {
 
           <BcdaHero />
 
+          {/* YTC POSTERS — own section above the sub carousels */}
+          <SpotlightHero />
+
           {/* SUB CAROUSELS — horizontal scroll on mobile */}
           <div className="home-sub-row">
             {SUB_CAROUSELS.map((sc, i) => (
@@ -420,9 +423,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-          {/* YTC POSTERS — own section, not part of the sub carousels */}
-          <SpotlightHero />
 
           {/* VIDEO + ISSUE COVER — stacks on mobile */}
           <div className="home-mid">
