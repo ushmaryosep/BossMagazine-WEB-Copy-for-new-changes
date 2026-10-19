@@ -19,6 +19,19 @@ const SPOTLIGHT_POSTERS = [
   },
 ]
 
+// New top highlight: BCDA feature
+const BCDA_PHOTO = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/BCDA%20FEATURE/bcda.png'
+const BCDA_TITLE = 'POWERING THE FUTURE OF NEW CLARK CITY: JAPANESE TECHNOLOGY MEETS SUSTAINABLE DEVELOPMENT'
+const BCDA_PARAGRAPHS = [
+  'A new chapter in innovation and sustainable urban development is taking shape in New Clark City as Japanese investors and technology leaders explore opportunities to bring advanced Japanese technologies to the Philippines.',
+  'Leading the initiative is Mr. Makoto Koura, Chairman of M-Ironman Consultancy Co. Ltd., together with the Bases Conversion and Development Authority (BCDA) Vice President for Investment, Promotions and Marketing Development. Joining them are Mr. Yoshiteru Takamatsu, CEO of Luminous Creative Planning Ltd., and Mr. Hidenori Asada, CEO of RA1Z Japan.',
+  'Through the collaboration of M-Ironman Consultancy Co. Ltd. and its Japanese partners, the initiative aims to introduce innovative Japanese technologies and expertise to the proposed BCDA housing project in New Clark City.',
+  'Beyond providing homes, the project envisions opportunities to integrate modern technology, promote sustainable living, and support the development of smarter, more future-ready communities.',
+  'As New Clark City continues to emerge as a major hub for investment and innovation, this partnership reflects the growing potential of Philippine-Japanese collaboration in shaping a more sustainable and technologically advanced future.',
+]
+const BCDA_TAGLINE = 'Building more than homes. Powering communities. Shaping the future.'
+const BCDA_TAGS = '#BossMagazinePH #NewClarkCity #BCDA #MIronmanConsultancy #JapanPhilippinesPartnership #SmartCity #SustainableDevelopment #Innovation'
+
 const SUB_CAROUSELS = [
   {
     title: 'Dagupan City Feature',
@@ -240,6 +253,63 @@ function SpotlightHero() {
   )
 }
 
+// Top highlight: photo first, full caption underneath (nothing sits on the photo)
+function BcdaHero() {
+  const [zoom, setZoom] = useState(false)
+
+  return (
+    <>
+      <div style={{ background: '#0d0d0d' }}>
+        <img
+          src={BCDA_PHOTO}
+          alt="Japanese investors and BCDA officials in New Clark City"
+          onClick={() => setZoom(true)}
+          style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '70vh', objectFit: 'contain', background: '#000', cursor: 'zoom-in' }}
+        />
+
+        <div style={{ maxWidth: 960, margin: '0 auto', padding: '28px clamp(16px, 4vw, 48px) 36px', textAlign: 'left' }}>
+          <span style={{ display: 'block', fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A227', marginBottom: 14 }}>
+            Feature
+          </span>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500, fontSize: 'clamp(22px, 3vw, 34px)', lineHeight: 1.25, color: '#F5F0E8', margin: '0 0 20px' }}>
+            {BCDA_TITLE}
+          </h2>
+          {BCDA_PARAGRAPHS.map((p, i) => (
+            <p key={i} style={{ fontSize: 15, lineHeight: 1.75, color: 'rgba(245,240,232,0.82)', margin: '0 0 16px' }}>
+              {p}
+            </p>
+          ))}
+          <p style={{ fontSize: 15, lineHeight: 1.75, fontStyle: 'italic', color: '#F5F0E8', margin: '24px 0 16px' }}>
+            {BCDA_TAGLINE}
+          </p>
+          <p style={{ fontSize: 12, lineHeight: 1.8, color: '#C9A227', margin: 0, wordBreak: 'break-word' }}>
+            {BCDA_TAGS}
+          </p>
+        </div>
+      </div>
+
+      {zoom && (
+        <div
+          style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.96)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out' }}
+          onClick={() => setZoom(false)}
+        >
+          <button
+            onClick={() => setZoom(false)}
+            style={{ position: 'fixed', top: 16, right: 16, width: 40, height: 40, background: 'rgba(245,240,232,0.1)', border: '1px solid rgba(245,240,232,0.2)', color: '#F5F0E8', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            aria-label="Close"
+          >✕</button>
+          <img
+            src={BCDA_PHOTO}
+            alt="BCDA feature full view"
+            style={{ maxWidth: '95vw', maxHeight: '92vh', objectFit: 'contain', display: 'block', boxShadow: '0 0 80px rgba(0,0,0,0.8)' }}
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
+  )
+}
+
 function SideAd() {
   return (
     <div className="side-ad">
@@ -334,7 +404,7 @@ export default function Home() {
 
           <AdBanner />
 
-          <SpotlightHero />
+          <BcdaHero />
 
           {/* SUB CAROUSELS — horizontal scroll on mobile */}
           <div className="home-sub-row">
@@ -350,6 +420,9 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* YTC POSTERS — own section, not part of the sub carousels */}
+          <SpotlightHero />
 
           {/* VIDEO + ISSUE COVER — stacks on mobile */}
           <div className="home-mid">
