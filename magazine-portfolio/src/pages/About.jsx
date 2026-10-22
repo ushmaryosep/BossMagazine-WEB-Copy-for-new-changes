@@ -4,7 +4,7 @@ import './About.css'
 const EDITORIAL_BOARD = [
   { role: 'Publisher',                              name: 'BOSS Media Philippines, Co. LTD.' },
   { role: 'Editor-in-Chief',                        name: 'Remie Degoma' },
-  { role: 'Executive Editor',                       name: 'Johnny Chotrani' },
+  { role: 'Executive Editor',                       name: 'DR. RAMON RODRIGUEZ' },
   { role: 'Managing Editor',                        name: 'Sofyan Alawi' },
   { role: 'Feature Editor',                         name: 'Lugille L. Roberto' },
   { role: 'Senior Marketing Specialist',            name: 'Francisca N. Dimayuga' },
