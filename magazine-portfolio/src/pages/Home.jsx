@@ -310,32 +310,6 @@ function BcdaHero() {
   )
 }
 
-// Teaser card linking to the dedicated Belmont Hotel Iloilo page
-function BelmontTeaser() {
-  return (
-    <Link
-      to="/belmont-hotel-iloilo"
-      style={{ display: 'flex', flexWrap: 'wrap', background: '#0d0d0d', textDecoration: 'none', color: '#F5F0E8', marginTop: 16, border: '1px solid rgba(201,162,39,0.25)' }}
-    >
-      <img
-        src="https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/BELMONT%20HOTEL/BHI_FACADE.jpg?raw=true"
-        alt="Belmont Hotel Iloilo"
-        style={{ flex: '1 1 320px', minWidth: 0, height: 300, objectFit: 'cover', display: 'block' }}
-      />
-      <div style={{ flex: '1 1 320px', padding: '28px clamp(16px, 3vw, 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <span style={{ fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#C9A227', marginBottom: 12 }}>Latest Feature</span>
-        <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500, fontSize: 'clamp(20px, 2.2vw, 28px)', lineHeight: 1.25, margin: '0 0 14px' }}>
-          WHAT'S NEXT FOR BELMONT HOTEL ILOILO: NEW EXPERIENCES, BIGGER POSSIBILITIES
-        </h3>
-        <p style={{ fontSize: 14, lineHeight: 1.7, color: 'rgba(245,240,232,0.75)', margin: '0 0 18px' }}>
-          Belmont Hotel Iloilo looks ahead to bigger gatherings, fresh dining experiences, and more reasons to Come Find Your Iloilo.
-        </p>
-        <span style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A227' }}>Read the full story →</span>
-      </div>
-    </Link>
-  )
-}
-
 function SideAd() {
   return (
     <div className="side-ad">
@@ -449,9 +423,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-          {/* BELMONT HOTEL ILOILO — teaser to dedicated page */}
-          <BelmontTeaser />
 
           {/* VIDEO + ISSUE COVER — stacks on mobile */}
           <div className="home-mid">
