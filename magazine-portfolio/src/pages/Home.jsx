@@ -310,6 +310,155 @@ function BcdaHero() {
   )
 }
 
+// ─── Belmont Hotel Iloilo feature (top of home) ─────────────────────────────
+const BEL_BASE = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/BELMONT%20HOTEL/'
+const BEL_FACADE = BEL_BASE + 'BHI_FACADE.jpg'
+const BEL_BALLROOM = BEL_BASE + 'Northern%20Islands%20Ballroom%20-%20Banquet.jpg'
+const BEL_EVENT = BEL_BASE + 'viber_image_2026-11-09_13-14-47-257.jpg'
+
+const BEL_TITLE = "WHAT'S NEXT FOR BELMONT HOTEL ILOILO: NEW EXPERIENCES, BIGGER POSSIBILITIES"
+const BEL_DECK = 'Belmont Hotel Iloilo looks ahead to bigger gatherings, fresh dining experiences, and more reasons to Come Find Your Iloilo.'
+const BEL_INTRO = 'With its doors now open and operations in full swing, Belmont Hotel Iloilo enters a new chapter centered on bringing people together. Beyond offering contemporary accommodation, the hotel is expanding opportunities for corporate events, social celebrations, and experiences that showcase Iloilo’s flavors and culture, inviting travelers and locals alike to savor every moment in the City of Love.'
+const BEL_GATHERINGS = [
+  'Belmont Hotel Iloilo is strengthening its presence in the MICE sector. Located in Iloilo Business Park, the hotel brings together flexible event venues, contemporary guest rooms, and dining outlets to accommodate business and social occasions.',
+  'Its Northern Islands Grand Ballroom welcomes up to 300 guests and can be divided into four function spaces: Pan de Azucar, Bantigue, Gigantes, and Agho. From corporate meetings and product launches to milestone celebrations, these venues support Iloilo’s growing appeal as a destination for business and events.',
+]
+const BEL_VISION_INTRO = 'For General Manager Joy Alonte, this next chapter means creating experiences that reflect the warmth and character of Iloilo while contributing to the city’s growth.'
+const BEL_VISION_QUOTE = '“We want people to come find their Iloilo with us. Whether through a memorable stay, a meaningful gathering, or an experience that brings them closer to the city, we hope every visit offers something worth remembering. As we grow, we look forward to connecting with more people, celebrating local culture, and contributing to Iloilo’s development as a business and leisure destination,” says Ms. Alonte.'
+const BEL_FLAVORS = [
+  'This vision also takes shape through the hotel’s dining offerings. At Belmont Café, the hotel’s Modern Ilonggo Diner, guests can enjoy local favorites reimagined with contemporary touches alongside international selections. Zabana Bar and Float Bar provide inviting spaces to unwind and gather over drinks and bites.',
+  'With Executive Chef Daryl Vance “Dale” Yulo Sy bringing his expertise to the team, guests can look forward to creative dishes and seasonal menus that celebrate Filipino flavors.',
+]
+const BEL_MOMENTS = [
+  'Looking ahead, Belmont Hotel Iloilo will continue developing stay experiences, cultural collaborations, and seasonal celebrations that give guests more ways to experience the destination. Guided by the Sampaguita Brand of Service, the hotel brings its promise to Savor the Moment to life through warm Filipino hospitality and thoughtful service.',
+  'Whether visiting for business, leisure, or a special occasion, guests are invited to Come Find Your Iloilo, one memorable moment at a time.',
+]
+
+function BelmontFeature() {
+  const gold = '#C9A227'
+  const cream = '#F5F0E8'
+  const serif = "'Cormorant Garamond', Georgia, serif"
+  const eyebrow = { display: 'block', fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase', color: gold, marginBottom: 14 }
+  const heading = { fontFamily: serif, fontWeight: 500, fontSize: 'clamp(20px, 2.4vw, 28px)', lineHeight: 1.25, letterSpacing: '0.02em', color: cream, margin: '0 0 16px' }
+  const para = { fontSize: 15, lineHeight: 1.8, color: 'rgba(245,240,232,0.82)', margin: '0 0 14px' }
+  const split = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 36, alignItems: 'center' }
+  const photo = { display: 'block', width: '100%', aspectRatio: '3 / 2', objectFit: 'cover', boxShadow: '0 10px 40px rgba(0,0,0,0.55)' }
+  const divider = { height: 1, background: 'rgba(201,162,39,0.25)', margin: 'clamp(32px, 5vw, 56px) 0' }
+  const box = { border: '1px solid rgba(201,162,39,0.35)', padding: '20px 22px' }
+
+  return (
+    <section style={{ background: '#0d0d0d', padding: 'clamp(24px, 4vw, 48px) clamp(16px, 3vw, 40px) 48px' }}>
+      {/* header */}
+      <span style={eyebrow}>Feature · Hospitality · Iloilo</span>
+      <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 'clamp(24px, 3.4vw, 42px)', lineHeight: 1.15, color: cream, margin: '0 0 18px' }}>
+        {BEL_TITLE}
+      </h2>
+      <p style={{ fontSize: 'clamp(15px, 1.4vw, 18px)', lineHeight: 1.65, fontStyle: 'italic', color: 'rgba(245,240,232,0.7)', margin: '0 0 28px' }}>
+        {BEL_DECK}
+      </p>
+
+      {/* hero photo */}
+      <img
+        src={BEL_FACADE}
+        alt="Belmont Hotel Iloilo facade at dusk"
+        style={{ display: 'block', width: '100%', height: 'clamp(240px, 52vh, 560px)', objectFit: 'cover', objectPosition: 'center 35%', boxShadow: '0 10px 50px rgba(0,0,0,0.6)' }}
+      />
+
+      {/* intro */}
+      <p style={{ margin: '32px 0 0', padding: '4px 0 4px 22px', borderLeft: '2px solid ' + gold, fontFamily: serif, fontSize: 'clamp(18px, 2vw, 23px)', lineHeight: 1.6, color: cream }}>
+        {BEL_INTRO}
+      </p>
+
+      <div style={divider} />
+
+      {/* gatherings */}
+      <div style={split}>
+        <div>
+          <span style={eyebrow}>Events</span>
+          <h3 style={heading}>SETTING THE STAGE FOR BIGGER GATHERINGS</h3>
+          {BEL_GATHERINGS.map((t, i) => <p key={i} style={para}>{t}</p>)}
+        </div>
+        <img src={BEL_BALLROOM} alt="Northern Islands Grand Ballroom set for a banquet" style={photo} />
+      </div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 28 }}>
+        <div style={{ ...box, flex: '1 1 160px' }}>
+          <span style={{ display: 'block', fontFamily: serif, fontSize: 40, lineHeight: 1, color: gold }}>300</span>
+          <span style={{ display: 'block', marginTop: 8, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.6)' }}>Guests, Northern Islands Grand Ballroom</span>
+        </div>
+        <div style={{ ...box, flex: '1 1 160px' }}>
+          <span style={{ display: 'block', fontFamily: serif, fontSize: 40, lineHeight: 1, color: gold }}>4</span>
+          <span style={{ display: 'block', marginTop: 8, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.6)' }}>Function spaces</span>
+        </div>
+        <div style={{ ...box, flex: '2 1 280px', display: 'flex', flexWrap: 'wrap', gap: 8, alignContent: 'center' }}>
+          {['Pan de Azucar', 'Bantigue', 'Gigantes', 'Agho'].map(s => (
+            <span key={s} style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: cream, background: 'rgba(201,162,39,0.14)', padding: '7px 12px' }}>{s}</span>
+          ))}
+        </div>
+      </div>
+
+      <div style={divider} />
+
+      {/* vision */}
+      <div style={{ maxWidth: 820, margin: '0 auto', textAlign: 'center' }}>
+        <span style={eyebrow}>The Vision</span>
+        <h3 style={heading}>A VISION FOR WHAT’S AHEAD</h3>
+        <p style={{ ...para, margin: '0 0 24px' }}>{BEL_VISION_INTRO}</p>
+        <blockquote style={{ margin: 0, padding: '24px clamp(16px, 4vw, 36px)', background: 'rgba(201,162,39,0.07)', borderTop: '2px solid ' + gold, borderBottom: '2px solid ' + gold, fontFamily: serif, fontSize: 'clamp(17px, 1.9vw, 21px)', lineHeight: 1.65, fontStyle: 'italic', color: cream, textAlign: 'left' }}>
+          {BEL_VISION_QUOTE}
+        </blockquote>
+      </div>
+
+      <div style={divider} />
+
+      {/* flavors */}
+      <span style={eyebrow}>Dining</span>
+      <h3 style={heading}>MORE FLAVORS, MORE EXPERIENCES</h3>
+      <div style={{ maxWidth: 820 }}>
+        {BEL_FLAVORS.map((t, i) => <p key={i} style={para}>{t}</p>)}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, marginTop: 20 }}>
+        {[
+          { name: 'Belmont Café', note: 'Modern Ilonggo Diner' },
+          { name: 'Zabana Bar', note: 'Drinks and bites' },
+          { name: 'Float Bar', note: 'Drinks and bites' },
+        ].map(o => (
+          <div key={o.name} style={box}>
+            <span style={{ display: 'block', fontFamily: serif, fontSize: 22, color: cream }}>{o.name}</span>
+            <span style={{ display: 'block', marginTop: 6, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: gold }}>{o.note}</span>
+          </div>
+        ))}
+      </div>
+
+      <div style={divider} />
+
+      {/* moments */}
+      <div style={split}>
+        <img src={BEL_EVENT} alt="Guests applauding at a Belmont Hotel Iloilo event" style={photo} />
+        <div>
+          <span style={eyebrow}>Looking Ahead</span>
+          <h3 style={heading}>MORE MOMENTS WORTH SAVORING</h3>
+          {BEL_MOMENTS.map((t, i) => <p key={i} style={para}>{t}</p>)}
+        </div>
+      </div>
+
+      <div style={divider} />
+
+      {/* contact */}
+      <div style={{ maxWidth: 820, margin: '0 auto', border: '1px solid rgba(201,162,39,0.4)', padding: 'clamp(20px, 3vw, 34px)' }}>
+        <span style={eyebrow}>For inquiries and reservations</span>
+        <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: 26, color: cream, margin: '0 0 14px' }}>Belmont Hotel Iloilo</h3>
+        <p style={{ fontSize: 14, lineHeight: 1.9, color: 'rgba(245,240,232,0.82)', margin: 0 }}>
+          Iloilo Business Park, Mandurriao, Iloilo City<br />
+          Trunkline: <a href="tel:+63335000840" style={{ color: gold, textDecoration: 'none' }}>(033) 500 0840</a><br />
+          Website: <a href="https://www.belmontiloilo.com" target="_blank" rel="noopener noreferrer" style={{ color: gold, textDecoration: 'none' }}>www.belmontiloilo.com</a><br />
+          Facebook &amp; Instagram: @belmontiloiloph
+        </p>
+      </div>
+    </section>
+  )
+}
+
 function SideAd() {
   return (
     <div className="side-ad">
@@ -403,6 +552,9 @@ export default function Home() {
         <div className="home-center">
 
           <AdBanner />
+
+          {/* BELMONT HOTEL ILOILO — new top feature */}
+          <BelmontFeature />
 
           <BcdaHero />
 
