@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { supabase, supabaseOwn } from '../lib/supabase'
-import magazines from '../data/magazines'
+import { useMagazines, useHomeArticles } from '../lib/content'
 import ArticleCard from '../components/ArticleCard'
 import SubCarousel from '../components/SubCarousel'
 import MagazineViewer from '../components/MagazineViewer'
@@ -95,7 +94,6 @@ const SUB_CAROUSELS = [
 ]
 
 const YOUTUBE_IDS = ['pLx5EIT0jzY', 'iYBtU81QlCQ', '9jKHgBnvlsw']
-const JAN_2026_COVER = '/images/Magazine%20Issues/JANUARY%202026%20ISSUE/1%20Cover%20Page.png'
 
 // ─── Random 5-digit stats (fixed on mount) ──────────────────────────────────
 function rand5() { return Math.floor(10000 + Math.random() * 90000) }
@@ -483,60 +481,53 @@ function VideoEmbed({ videoId, label }) {
   )
 }
 
-function IssueCover() {
+function IssueCover({ magazine, label = 'Current Issue', onOpen }) {
+  if (!magazine) return null
   return (
     <div className="issue-cover">
-      <span className="issue-cover__eyebrow">Current Issue</span>
-      <div className="issue-cover__mag">
-        <img src={JAN_2026_COVER} alt="January 2026 Issue" className="issue-cover__img" />
+      <span className="issue-cover__eyebrow">{label}</span>
+      <div className="issue-cover__mag" onClick={() => onOpen(magazine)} style={{ cursor: 'pointer' }}>
+        <img src={magazine.cover_image} alt={magazine.title} className="issue-cover__img" />
         <div className="issue-cover__mag-footer">
-          <p className="issue-cover__title">January 2026</p>
-          <Link to="/magazines" className="issue-cover__link">View Issue →</Link>
+          <p className="issue-cover__title">{magazine.title}</p>
+          <span className="issue-cover__link">Read Issue →</span>
         </div>
       </div>
     </div>
   )
 }
 
+// Newest content from Supabase — always first on the page
+function LatestSection({ feature, latest, magazine, loading, onOpenMag }) {
+  const top = latest.slice(0, 3)
+  return (
+    <section className="home-latest">
+      <div className="home-latest__main">
+        <div className="home-latest__feature">
+          {loading
+            ? <div className="article-skeleton" />
+            : (feature || latest[0]) && <ArticleCard article={feature || latest[0]} featured />}
+        </div>
+        <div className="home-latest__issue">
+          <IssueCover magazine={magazine} label="New Issue" onOpen={onOpenMag} />
+        </div>
+      </div>
+      <div className="home-latest__row">
+        {loading
+          ? Array(3).fill(null).map((_, i) => <div key={i} className="article-skeleton" />)
+          : (feature ? top : latest.slice(1, 4)).map(a => <ArticleCard key={`${a._source}-${a.id}`} article={a} />)}
+      </div>
+    </section>
+  )
+}
+
 export default function Home() {
-  const [articles, setArticles] = useState([])
-  const [loading, setLoading] = useState(true)
   const [viewingMag, setViewingMag] = useState(null)
+  const [magazines] = useMagazines()
+  const [{ feature, latest }, loading] = useHomeArticles(8)
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      // Fetch from YOUR Supabase first
-      const { data: ownData } = await supabaseOwn
-        .from('articles')
-        .select('id, title, excerpt, cover_image, category, author, published_at')
-        .order('published_at', { ascending: false })
-        .limit(4)
-
-      const own = (ownData || []).map(a => ({ ...a, _source: 'own' }))
-
-      // If we already have 4 from your DB, use those only
-      if (own.length >= 4) {
-        setArticles(own.slice(0, 4))
-        setLoading(false)
-        return
-      }
-
-      // Fill remaining slots from original Supabase
-      const remaining = 4 - own.length
-      const { data: origData } = await supabase
-        .from('articles')
-        .select('id, title, excerpt, cover_image, category, author, published_at')
-        .order('published_at', { ascending: false })
-        .limit(remaining)
-
-      const orig = (origData || []).map(a => ({ ...a, _source: 'orig' }))
-
-      setArticles([...own, ...orig])
-      setLoading(false)
-    }
-
-    fetchArticles()
-  }, [])
+  // Top section shows the first 3 (or 4 if no feature story); the rest fill the lower slots
+  const articles = latest.slice(feature ? 3 : 4)
 
   return (
     <>
@@ -550,6 +541,15 @@ export default function Home() {
         </aside>
 
         <div className="home-center">
+
+          {/* LATEST — newest Supabase magazine + articles, Feature Story highlighted */}
+          <LatestSection
+            feature={feature}
+            latest={latest}
+            magazine={magazines[0]}
+            loading={loading}
+            onOpenMag={setViewingMag}
+          />
 
           <AdBanner />
 
@@ -584,7 +584,7 @@ export default function Home() {
             </div>
 
             <div className="home-mid__cover">
-              <IssueCover />
+              <IssueCover magazine={magazines[1]} label="Previous Issue" onOpen={setViewingMag} />
             </div>
 
             <div className="home-mid__video3">
@@ -607,7 +607,7 @@ export default function Home() {
             {loading
               ? Array(3).fill(null).map((_, i) => <div key={i} className="article-skeleton" />)
               : articles.slice(1, 4).length > 0
-                ? articles.slice(1, 4).map(a => <ArticleCard key={a.id} article={a} />)
+                ? articles.slice(1, 4).map(a => <ArticleCard key={`${a._source}-${a.id}`} article={a} />)
                 : Array(3).fill(null).map((_, i) => (
                     <div key={i} className="article-preview-empty">
                       <span>Article Preview {i + 2}</span>
