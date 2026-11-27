@@ -61,7 +61,7 @@ export default function About() {
           <div className="about-bosstv__grid">
             <div className="about-bosstv__logo-wrap">
               <img
-                src="https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/public/BOSSTV%20LOGO.jpg?raw=true"
+                src="/BOSSTV%20LOGO.jpg"
                 alt="Boss TV"
                 className="about-bosstv__logo"
               />

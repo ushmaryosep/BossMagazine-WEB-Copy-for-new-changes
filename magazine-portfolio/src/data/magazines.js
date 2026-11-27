@@ -1,8 +1,8 @@
-const BASE = 'https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/Magazine%20Issues'
+const BASE = '/images/Magazine%20Issues'
 
 function pages(issue, count, coverName = '1%20Cover%20Page') {
-  const arr = [`${BASE}/${issue}/${coverName}.png?raw=true`]
-  for (let i = 2; i <= count; i++) arr.push(`${BASE}/${issue}/${i}.png?raw=true`)
+  const arr = [`${BASE}/${issue}/${coverName}.png`]
+  for (let i = 2; i <= count; i++) arr.push(`${BASE}/${issue}/${i}.png`)
   return arr
 }
 
@@ -12,7 +12,7 @@ const magazines = [
     title: 'November 2026',
     issue: 'Issue 05',
     date: 'November 2026',
-    cover_image: `${BASE}/NOVEMBER%202026%20ISSUE/1.png?raw=true`,
+    cover_image: `${BASE}/NOVEMBER%202026%20ISSUE/1.png`,
     pages: pages('NOVEMBER%202026%20ISSUE', 36, '1'),
   },
   {
@@ -20,7 +20,7 @@ const magazines = [
     title: 'January 2026',
     issue: 'Issue 04',
     date: 'January 2026',
-    cover_image: `${BASE}/JANUARY%202026%20ISSUE/1%20Cover%20Page.png?raw=true`,
+    cover_image: `${BASE}/JANUARY%202026%20ISSUE/1%20Cover%20Page.png`,
     pages: pages('JANUARY%202026%20ISSUE', 30),
   },
   {
@@ -28,7 +28,7 @@ const magazines = [
     title: 'September 2025',
     issue: 'Issue 03',
     date: 'September 2025',
-    cover_image: `${BASE}/SEPTEMBER%202025%20ISSUE/1%20Cover%20Page.png?raw=true`,
+    cover_image: `${BASE}/SEPTEMBER%202025%20ISSUE/1%20Cover%20Page.png`,
     pages: pages('SEPTEMBER%202025%20ISSUE', 28),
   },
   {
@@ -36,7 +36,7 @@ const magazines = [
     title: 'May 2025',
     issue: 'Issue 02',
     date: 'May 2025',
-    cover_image: `${BASE}/MAY%202025%20ISSUE/1%20Cover%20Page.png?raw=true`,
+    cover_image: `${BASE}/MAY%202025%20ISSUE/1%20Cover%20Page.png`,
     pages: pages('MAY%202025%20ISSUE', 28),
   },
   {
@@ -44,7 +44,7 @@ const magazines = [
     title: 'December 2024',
     issue: 'Issue 01',
     date: 'December 2024',
-    cover_image: `${BASE}/DECEMBER%202024%20ISSUE/1%20Cover%20Page.png?raw=true`,
+    cover_image: `${BASE}/DECEMBER%202024%20ISSUE/1%20Cover%20Page.png`,
     pages: pages('DECEMBER%202024%20ISSUE', 32),
   },
 ]

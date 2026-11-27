@@ -10,17 +10,17 @@ import './Home.css'
 // New spotlight posters (2 x A4)
 const SPOTLIGHT_POSTERS = [
   {
-    src: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/YTC%20NOVEMBER%202026/2ND%20NATIONAL%20YOUTH%20TECH%20CONGRESS%20ILOILO%202026%20OFFICIAL%20POSTER.png',
+    src: '/images/YTC%20NOVEMBER%202026/2ND%20NATIONAL%20YOUTH%20TECH%20CONGRESS%20ILOILO%202026%20OFFICIAL%20POSTER.png',
     alt: '2nd National Youth Tech Congress Iloilo 2026 Official Poster',
   },
   {
-    src: 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/YTC%20NOVEMBER%202026/NEW%20YTC%20POSTER%20(1).png',
+    src: '/images/YTC%20NOVEMBER%202026/NEW%20YTC%20POSTER%20(1).png',
     alt: 'Youth Tech Congress November 2026 Poster',
   },
 ]
 
 // New top highlight: BCDA feature
-const BCDA_PHOTO = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/BCDA%20FEATURE/bcda.png'
+const BCDA_PHOTO = '/images/BCDA%20FEATURE/bcda.png'
 const BCDA_TITLE = 'POWERING THE FUTURE OF NEW CLARK CITY: JAPANESE TECHNOLOGY MEETS SUSTAINABLE DEVELOPMENT'
 const BCDA_PARAGRAPHS = [
   'A new chapter in innovation and sustainable urban development is taking shape in New Clark City as Japanese investors and technology leaders explore opportunities to bring advanced Japanese technologies to the Philippines.',
@@ -38,9 +38,9 @@ const SUB_CAROUSELS = [
     description: 'In Dagupan City, a local fisherman navigates the waters in a small wooden boat, bringing his daily catch directly to nearby restaurants. With crabs selling at around ₱800 per kilo, the trade offers a modest return—but only after hours of labor under the sun and uncertain conditions at sea.',
     objectFit: 'cover',
     images: [
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(1).png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(2).png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/DAGUPAN%20CITY%20FEATURE/Title%20(3).png',
+      '/images/DAGUPAN%20CITY%20FEATURE/Title%20(1).png',
+      '/images/DAGUPAN%20CITY%20FEATURE/Title%20(2).png',
+      '/images/DAGUPAN%20CITY%20FEATURE/Title%20(3).png',
     ],
   },
   {
@@ -48,12 +48,12 @@ const SUB_CAROUSELS = [
     description: 'Japan investors visited BCDA in Clark City and the Malacañang Museum. / Boss Magazine PH',
     objectFit: 'cover',
     images: [
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/1.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/2.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/3.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/4.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/5.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/MAIN%20CARROUSEL%201/6.png',
+      '/images/MAIN%20CARROUSEL%201/1.png',
+      '/images/MAIN%20CARROUSEL%201/2.png',
+      '/images/MAIN%20CARROUSEL%201/3.png',
+      '/images/MAIN%20CARROUSEL%201/4.png',
+      '/images/MAIN%20CARROUSEL%201/5.png',
+      '/images/MAIN%20CARROUSEL%201/6.png',
     ],
   },
   {
@@ -61,10 +61,10 @@ const SUB_CAROUSELS = [
     description: 'Official international media partner — India, Africa, Malaysia, and Kenya.',
     objectFit: 'cover',
     images: [
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/1.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/2.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/3.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%202/4.png',
+      '/images/SUB%20CARROUSEL%202/1.png',
+      '/images/SUB%20CARROUSEL%202/2.png',
+      '/images/SUB%20CARROUSEL%202/3.png',
+      '/images/SUB%20CARROUSEL%202/4.png',
     ],
   },
   {
@@ -72,11 +72,11 @@ const SUB_CAROUSELS = [
     description: 'Boss Magazine PH as official media partner.',
     objectFit: 'contain',
     images: [
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/FINPRO%20HEADLINE%20APRIL%202026/HEAD%20IMAGE%20FOR%20DASHBOARD.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20CONSTRUCTION%20EXPO%202026.jpg',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20ELECTRICITY%20EXPO%202026.jpg',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/PH%20CONSTRUCTION%20EXPO%202026.jpg',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%203%20(EXPOS)/PH%20PHARMA%20EXPO%202026.jpg',
+      '/images/FINPRO%20HEADLINE%20APRIL%202026/HEAD%20IMAGE%20FOR%20DASHBOARD.png',
+      '/images/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20CONSTRUCTION%20EXPO%202026.jpg',
+      '/images/SUB%20CARROUSEL%203%20(EXPOS)/MALAYSIA%20ELECTRICITY%20EXPO%202026.jpg',
+      '/images/SUB%20CARROUSEL%203%20(EXPOS)/PH%20CONSTRUCTION%20EXPO%202026.jpg',
+      '/images/SUB%20CARROUSEL%203%20(EXPOS)/PH%20PHARMA%20EXPO%202026.jpg',
     ],
   },
   {
@@ -84,18 +84,18 @@ const SUB_CAROUSELS = [
     description: 'Highlights from premier events across the Philippines.',
     objectFit: 'cover',
     images: [
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/1.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/2.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/3.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/4.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/5.png',
-      'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/SUB%20CARROUSEL%204/6.png',
+      '/images/SUB%20CARROUSEL%204/1.png',
+      '/images/SUB%20CARROUSEL%204/2.png',
+      '/images/SUB%20CARROUSEL%204/3.png',
+      '/images/SUB%20CARROUSEL%204/4.png',
+      '/images/SUB%20CARROUSEL%204/5.png',
+      '/images/SUB%20CARROUSEL%204/6.png',
     ],
   },
 ]
 
 const YOUTUBE_IDS = ['pLx5EIT0jzY', 'iYBtU81QlCQ', '9jKHgBnvlsw']
-const JAN_2026_COVER = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/Magazine%20Issues/JANUARY%202026%20ISSUE/1%20Cover%20Page.png'
+const JAN_2026_COVER = '/images/Magazine%20Issues/JANUARY%202026%20ISSUE/1%20Cover%20Page.png'
 
 // ─── Random 5-digit stats (fixed on mount) ──────────────────────────────────
 function rand5() { return Math.floor(10000 + Math.random() * 90000) }
@@ -169,7 +169,7 @@ function AdBanner() {
   return (
     <div className="home-banner-ad">
       <img
-        src="https://github.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/blob/main/magazine-portfolio/src/assets/blueoakbannerads.png?raw=true"
+        src="/images/blueoakbannerads.png"
         alt="Advertisement"
         className="home-banner-ad__img"
       />
@@ -311,7 +311,7 @@ function BcdaHero() {
 }
 
 // ─── Belmont Hotel Iloilo feature (top of home) ─────────────────────────────
-const BEL_BASE = 'https://raw.githubusercontent.com/ushmaryosep/BossMagazine-WEB-Copy-for-new-changes/refs/heads/main/magazine-portfolio/src/assets/BELMONT%20HOTEL/'
+const BEL_BASE = '/images/BELMONT%20HOTEL/'
 const BEL_FACADE = BEL_BASE + 'BHI_FACADE.jpg'
 const BEL_BALLROOM = BEL_BASE + 'Northern%20Islands%20Ballroom%20-%20Banquet.jpg'
 const BEL_EVENT = BEL_BASE + 'viber_image_2026-11-09_13-14-47-257.jpg'
