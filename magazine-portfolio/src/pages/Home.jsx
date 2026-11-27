@@ -542,6 +542,8 @@ export default function Home() {
 
         <div className="home-center">
 
+          <AdBanner />
+
           {/* LATEST — newest Supabase magazine + articles, Feature Story highlighted */}
           <LatestSection
             feature={feature}
@@ -550,8 +552,6 @@ export default function Home() {
             loading={loading}
             onOpenMag={setViewingMag}
           />
-
-          <AdBanner />
 
           {/* BELMONT HOTEL ILOILO — new top feature */}
           <BelmontFeature />
