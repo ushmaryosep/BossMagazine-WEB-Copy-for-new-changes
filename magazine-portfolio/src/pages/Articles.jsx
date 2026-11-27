@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase, supabaseOwn } from '../lib/supabase'
 import ArticleCard from '../components/ArticleCard'
+import { newestFirst, isFeatureStory } from '../lib/content'
 import './Articles.css'
 
 const PAGE_SIZE = 9
@@ -51,7 +52,7 @@ export default function Articles() {
     let ownQuery = supabaseOwn
       .from('articles')
       .select('id, title, excerpt, cover_image, category, author, published_at, created_at')
-      .order('published_at', { ascending: false })
+      .order('created_at', { ascending: false })
 
     if (search)    ownQuery = ownQuery.ilike('title', `%${search}%`)
     if (activeTag) ownQuery = ownQuery.eq('category', activeTag)
@@ -74,13 +75,13 @@ export default function Articles() {
     const own  = (ownData  || []).map(a => ({ ...a, _source: 'own'  }))
     const orig = (origData || []).map(a => ({ ...a, _source: 'orig' }))
 
-    // Merge: yours first, then original — deduplicate by title just in case
+    // Merge both DBs newest first — deduplicate by title just in case
     const seen = new Set()
     const merged = [...own, ...orig].filter(a => {
       if (seen.has(a.title)) return false
       seen.add(a.title)
       return true
-    })
+    }).sort(newestFirst)
 
     // Paginate the merged result
     const start   = pageNum * PAGE_SIZE
@@ -141,7 +142,7 @@ export default function Articles() {
         <p className="empty-state">No articles found.</p>
       ) : (
         <div className="articles-page__grid">
-          {articles.map(a => <ArticleCard key={`${a._source}-${a.id}`} article={a} />)}
+          {articles.map(a => <ArticleCard key={`${a._source}-${a.id}`} article={a} featured={isFeatureStory(a)} />)}
         </div>
       )}
 
